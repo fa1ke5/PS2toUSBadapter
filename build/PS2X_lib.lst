@@ -1,0 +1,2802 @@
+ARM GAS  D:\Temp\cchpYA3w.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 1
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"PS2X_lib.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.global	__aeabi_fsub
+  16              		.global	__aeabi_fdiv
+  17              		.global	__aeabi_fmul
+  18              		.global	__aeabi_fadd
+  19              		.section	.text.map,"ax",%progbits
+  20              		.align	1
+  21              		.global	map
+  22              		.arch armv7-m
+  23              		.syntax unified
+  24              		.thumb
+  25              		.thumb_func
+  26              		.fpu softvfp
+  28              	map:
+  29              	.LVL0:
+  30              	.LFB69:
+  31              		.file 1 "Drivers/PS2Xlib/Src/PS2X_lib.c"
+   1:Drivers/PS2Xlib/Src/PS2X_lib.c **** #include "PS2X_lib.h"
+   2:Drivers/PS2Xlib/Src/PS2X_lib.c **** //#include <math.h>
+   3:Drivers/PS2Xlib/Src/PS2X_lib.c **** //#include <stdio.h>
+   4:Drivers/PS2Xlib/Src/PS2X_lib.c **** #include <stdint.h>
+   5:Drivers/PS2Xlib/Src/PS2X_lib.c **** #include "cmsis_os.h"
+   6:Drivers/PS2Xlib/Src/PS2X_lib.c **** #include "main.h"
+   7:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+   8:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+   9:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+  10:Drivers/PS2Xlib/Src/PS2X_lib.c **** static uint8_t enter_config[]={0x01,0x43,0x00,0x01,0x00};
+  11:Drivers/PS2Xlib/Src/PS2X_lib.c **** static uint8_t set_mode[]={0x01,0x44,0x00,0x01,0x03,0x00,0x00,0x00,0x00};
+  12:Drivers/PS2Xlib/Src/PS2X_lib.c **** static uint8_t set_bytes_large[]={0x01,0x4F,0x00,0xFF,0xFF,0x03,0x00,0x00,0x00};
+  13:Drivers/PS2Xlib/Src/PS2X_lib.c **** static uint8_t exit_config[]={0x01,0x43,0x00,0x00,0x5A,0x5A,0x5A,0x5A,0x5A};
+  14:Drivers/PS2Xlib/Src/PS2X_lib.c **** static uint8_t enable_rumble[]={0x01,0x4D,0x00,0x00,0x01};
+  15:Drivers/PS2Xlib/Src/PS2X_lib.c **** static uint8_t type_read[]={0x01,0x45,0x00,0x5A,0x5A,0x5A,0x5A,0x5A,0x5A};
+  16:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+  17:Drivers/PS2Xlib/Src/PS2X_lib.c **** float map(float val, float I_Min, float I_Max, float O_Min, float O_Max)
+  18:Drivers/PS2Xlib/Src/PS2X_lib.c **** 	{
+  32              		.loc 1 18 2 view -0
+  33              		.cfi_startproc
+  34              		@ args = 4, pretend = 0, frame = 0
+  35              		@ frame_needed = 0, uses_anonymous_args = 0
+  36              		.loc 1 18 2 is_stmt 0 view .LVU1
+  37 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+  38              	.LCFI0:
+  39              		.cfi_def_cfa_offset 24
+  40              		.cfi_offset 4, -24
+ARM GAS  D:\Temp\cchpYA3w.s 			page 2
+
+
+  41              		.cfi_offset 5, -20
+  42              		.cfi_offset 6, -16
+  43              		.cfi_offset 7, -12
+  44              		.cfi_offset 8, -8
+  45              		.cfi_offset 14, -4
+  46 0004 8846     		mov	r8, r1
+  47 0006 1746     		mov	r7, r2
+  48 0008 1C46     		mov	r4, r3
+  19:Drivers/PS2Xlib/Src/PS2X_lib.c **** 		return(((val-I_Min)*((O_Max-O_Min)/(I_Max-I_Min)))+O_Min);
+  49              		.loc 1 19 3 is_stmt 1 view .LVU2
+  50              		.loc 1 19 15 is_stmt 0 view .LVU3
+  51 000a FFF7FEFF 		bl	__aeabi_fsub
+  52              	.LVL1:
+  53              		.loc 1 19 15 view .LVU4
+  54 000e 0546     		mov	r5, r0
+  55              		.loc 1 19 30 view .LVU5
+  56 0010 2146     		mov	r1, r4
+  57 0012 0698     		ldr	r0, [sp, #24]	@ float
+  58 0014 FFF7FEFF 		bl	__aeabi_fsub
+  59              	.LVL2:
+  60 0018 0646     		mov	r6, r0
+  61              		.loc 1 19 44 view .LVU6
+  62 001a 4146     		mov	r1, r8
+  63 001c 3846     		mov	r0, r7
+  64 001e FFF7FEFF 		bl	__aeabi_fsub
+  65              	.LVL3:
+  66              		.loc 1 19 37 view .LVU7
+  67 0022 0146     		mov	r1, r0
+  68 0024 3046     		mov	r0, r6
+  69 0026 FFF7FEFF 		bl	__aeabi_fdiv
+  70              	.LVL4:
+  71              		.loc 1 19 22 view .LVU8
+  72 002a 0146     		mov	r1, r0
+  73 002c 2846     		mov	r0, r5
+  74 002e FFF7FEFF 		bl	__aeabi_fmul
+  75              	.LVL5:
+  76              		.loc 1 19 53 view .LVU9
+  77 0032 2146     		mov	r1, r4
+  78 0034 FFF7FEFF 		bl	__aeabi_fadd
+  79              	.LVL6:
+  20:Drivers/PS2Xlib/Src/PS2X_lib.c ****    }
+  80              		.loc 1 20 4 view .LVU10
+  81 0038 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+  82              		.loc 1 20 4 view .LVU11
+  83              		.cfi_endproc
+  84              	.LFE69:
+  86              		.section	.text._NewButtonState,"ax",%progbits
+  87              		.align	1
+  88              		.global	_NewButtonState
+  89              		.syntax unified
+  90              		.thumb
+  91              		.thumb_func
+  92              		.fpu softvfp
+  94              	_NewButtonState:
+  95              	.LFB70:
+  21:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+  22:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ARM GAS  D:\Temp\cchpYA3w.s 			page 3
+
+
+  23:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+  24:Drivers/PS2Xlib/Src/PS2X_lib.c ****     inline void CLK_SET(void);
+  25:Drivers/PS2Xlib/Src/PS2X_lib.c ****     inline void CLK_CLR(void);
+  26:Drivers/PS2Xlib/Src/PS2X_lib.c ****     inline void CMD_SET(void);
+  27:Drivers/PS2Xlib/Src/PS2X_lib.c ****     inline void CMD_CLR(void);
+  28:Drivers/PS2Xlib/Src/PS2X_lib.c ****     inline void ATT_SET(void);
+  29:Drivers/PS2Xlib/Src/PS2X_lib.c ****     inline void ATT_CLR(void);
+  30:Drivers/PS2Xlib/Src/PS2X_lib.c ****     inline bool DAT_CHK(void);
+  31:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+  32:Drivers/PS2Xlib/Src/PS2X_lib.c **** /****************************************************************************************/
+  33:Drivers/PS2Xlib/Src/PS2X_lib.c **** bool _NewButtonState() {
+  96              		.loc 1 33 24 is_stmt 1 view -0
+  97              		.cfi_startproc
+  98              		@ args = 0, pretend = 0, frame = 0
+  99              		@ frame_needed = 0, uses_anonymous_args = 0
+ 100              		@ link register save eliminated.
+  34:Drivers/PS2Xlib/Src/PS2X_lib.c ****   return ((last_buttons ^ buttons) > 0);
+ 101              		.loc 1 34 3 view .LVU13
+ 102              		.loc 1 34 36 is_stmt 0 view .LVU14
+ 103 0000 034B     		ldr	r3, .L4
+ 104 0002 1888     		ldrh	r0, [r3]
+ 105 0004 034B     		ldr	r3, .L4+4
+ 106 0006 1B88     		ldrh	r3, [r3]
+  35:Drivers/PS2Xlib/Src/PS2X_lib.c **** }
+ 107              		.loc 1 35 1 view .LVU15
+ 108 0008 C01A     		subs	r0, r0, r3
+ 109 000a 18BF     		it	ne
+ 110 000c 0120     		movne	r0, #1
+ 111 000e 7047     		bx	lr
+ 112              	.L5:
+ 113              		.align	2
+ 114              	.L4:
+ 115 0010 00000000 		.word	last_buttons
+ 116 0014 00000000 		.word	buttons
+ 117              		.cfi_endproc
+ 118              	.LFE70:
+ 120              		.section	.text.NewButtonState,"ax",%progbits
+ 121              		.align	1
+ 122              		.global	NewButtonState
+ 123              		.syntax unified
+ 124              		.thumb
+ 125              		.thumb_func
+ 126              		.fpu softvfp
+ 128              	NewButtonState:
+ 129              	.LVL7:
+ 130              	.LFB71:
+  36:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+  37:Drivers/PS2Xlib/Src/PS2X_lib.c **** /****************************************************************************************/
+  38:Drivers/PS2Xlib/Src/PS2X_lib.c **** bool NewButtonState(unsigned int button) {
+ 131              		.loc 1 38 42 is_stmt 1 view -0
+ 132              		.cfi_startproc
+ 133              		@ args = 0, pretend = 0, frame = 0
+ 134              		@ frame_needed = 0, uses_anonymous_args = 0
+ 135              		@ link register save eliminated.
+  39:Drivers/PS2Xlib/Src/PS2X_lib.c ****   return (((last_buttons ^ buttons) & button) > 0);
+ 136              		.loc 1 39 3 view .LVU17
+ 137              		.loc 1 39 26 is_stmt 0 view .LVU18
+ARM GAS  D:\Temp\cchpYA3w.s 			page 4
+
+
+ 138 0000 044B     		ldr	r3, .L7
+ 139 0002 1B88     		ldrh	r3, [r3]
+ 140 0004 044A     		ldr	r2, .L7+4
+ 141 0006 1288     		ldrh	r2, [r2]
+ 142 0008 5340     		eors	r3, r3, r2
+ 143              		.loc 1 39 47 view .LVU19
+ 144 000a 0342     		tst	r3, r0
+  40:Drivers/PS2Xlib/Src/PS2X_lib.c **** }
+ 145              		.loc 1 40 1 view .LVU20
+ 146 000c 14BF     		ite	ne
+ 147 000e 0120     		movne	r0, #1
+ 148              	.LVL8:
+ 149              		.loc 1 40 1 view .LVU21
+ 150 0010 0020     		moveq	r0, #0
+ 151 0012 7047     		bx	lr
+ 152              	.L8:
+ 153              		.align	2
+ 154              	.L7:
+ 155 0014 00000000 		.word	last_buttons
+ 156 0018 00000000 		.word	buttons
+ 157              		.cfi_endproc
+ 158              	.LFE71:
+ 160              		.section	.text.ButtonReleased,"ax",%progbits
+ 161              		.align	1
+ 162              		.global	ButtonReleased
+ 163              		.syntax unified
+ 164              		.thumb
+ 165              		.thumb_func
+ 166              		.fpu softvfp
+ 168              	ButtonReleased:
+ 169              	.LVL9:
+ 170              	.LFB73:
+  41:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+  42:Drivers/PS2Xlib/Src/PS2X_lib.c **** /****************************************************************************************/
+  43:Drivers/PS2Xlib/Src/PS2X_lib.c **** bool ButtonPressed(unsigned int button) {
+  44:Drivers/PS2Xlib/Src/PS2X_lib.c ****   return(NewButtonState(button) & Button(button));
+  45:Drivers/PS2Xlib/Src/PS2X_lib.c **** }
+  46:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+  47:Drivers/PS2Xlib/Src/PS2X_lib.c **** /****************************************************************************************/
+  48:Drivers/PS2Xlib/Src/PS2X_lib.c **** bool ButtonReleased(unsigned int button) {
+ 171              		.loc 1 48 42 is_stmt 1 view -0
+ 172              		.cfi_startproc
+ 173              		@ args = 0, pretend = 0, frame = 0
+ 174              		@ frame_needed = 0, uses_anonymous_args = 0
+ 175              		.loc 1 48 42 is_stmt 0 view .LVU23
+ 176 0000 10B5     		push	{r4, lr}
+ 177              	.LCFI1:
+ 178              		.cfi_def_cfa_offset 8
+ 179              		.cfi_offset 4, -8
+ 180              		.cfi_offset 14, -4
+ 181 0002 0446     		mov	r4, r0
+  49:Drivers/PS2Xlib/Src/PS2X_lib.c ****   return((NewButtonState(button)) & ((~last_buttons & button) > 0));
+ 182              		.loc 1 49 3 is_stmt 1 view .LVU24
+ 183              		.loc 1 49 11 is_stmt 0 view .LVU25
+ 184 0004 FFF7FEFF 		bl	NewButtonState
+ 185              	.LVL10:
+ 186              		.loc 1 49 39 view .LVU26
+ARM GAS  D:\Temp\cchpYA3w.s 			page 5
+
+
+ 187 0008 044B     		ldr	r3, .L11
+ 188 000a 1B88     		ldrh	r3, [r3]
+ 189              		.loc 1 49 63 view .LVU27
+ 190 000c 34EA0303 		bics	r3, r4, r3
+  50:Drivers/PS2Xlib/Src/PS2X_lib.c **** }
+ 191              		.loc 1 50 1 view .LVU28
+ 192 0010 00F00100 		and	r0, r0, #1
+ 193 0014 08BF     		it	eq
+ 194 0016 0020     		moveq	r0, #0
+ 195 0018 10BD     		pop	{r4, pc}
+ 196              	.LVL11:
+ 197              	.L12:
+ 198              		.loc 1 50 1 view .LVU29
+ 199 001a 00BF     		.align	2
+ 200              	.L11:
+ 201 001c 00000000 		.word	last_buttons
+ 202              		.cfi_endproc
+ 203              	.LFE73:
+ 205              		.section	.text.Button,"ax",%progbits
+ 206              		.align	1
+ 207              		.global	Button
+ 208              		.syntax unified
+ 209              		.thumb
+ 210              		.thumb_func
+ 211              		.fpu softvfp
+ 213              	Button:
+ 214              	.LVL12:
+ 215              	.LFB74:
+  51:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+  52:Drivers/PS2Xlib/Src/PS2X_lib.c **** /****************************************************************************************/
+  53:Drivers/PS2Xlib/Src/PS2X_lib.c **** bool Button(uint16_t button) {
+ 216              		.loc 1 53 30 is_stmt 1 view -0
+ 217              		.cfi_startproc
+ 218              		@ args = 0, pretend = 0, frame = 0
+ 219              		@ frame_needed = 0, uses_anonymous_args = 0
+ 220              		@ link register save eliminated.
+  54:Drivers/PS2Xlib/Src/PS2X_lib.c ****   return ((~buttons & button) > 0);
+ 221              		.loc 1 54 3 view .LVU31
+ 222              		.loc 1 54 12 is_stmt 0 view .LVU32
+ 223 0000 034B     		ldr	r3, .L14
+ 224 0002 1B88     		ldrh	r3, [r3]
+ 225              		.loc 1 54 31 view .LVU33
+ 226 0004 30EA0303 		bics	r3, r0, r3
+  55:Drivers/PS2Xlib/Src/PS2X_lib.c **** }
+ 227              		.loc 1 55 1 view .LVU34
+ 228 0008 14BF     		ite	ne
+ 229 000a 0120     		movne	r0, #1
+ 230              	.LVL13:
+ 231              		.loc 1 55 1 view .LVU35
+ 232 000c 0020     		moveq	r0, #0
+ 233 000e 7047     		bx	lr
+ 234              	.L15:
+ 235              		.align	2
+ 236              	.L14:
+ 237 0010 00000000 		.word	buttons
+ 238              		.cfi_endproc
+ 239              	.LFE74:
+ARM GAS  D:\Temp\cchpYA3w.s 			page 6
+
+
+ 241              		.section	.text.ButtonPressed,"ax",%progbits
+ 242              		.align	1
+ 243              		.global	ButtonPressed
+ 244              		.syntax unified
+ 245              		.thumb
+ 246              		.thumb_func
+ 247              		.fpu softvfp
+ 249              	ButtonPressed:
+ 250              	.LVL14:
+ 251              	.LFB72:
+  43:Drivers/PS2Xlib/Src/PS2X_lib.c ****   return(NewButtonState(button) & Button(button));
+ 252              		.loc 1 43 41 is_stmt 1 view -0
+ 253              		.cfi_startproc
+ 254              		@ args = 0, pretend = 0, frame = 0
+ 255              		@ frame_needed = 0, uses_anonymous_args = 0
+  43:Drivers/PS2Xlib/Src/PS2X_lib.c ****   return(NewButtonState(button) & Button(button));
+ 256              		.loc 1 43 41 is_stmt 0 view .LVU37
+ 257 0000 38B5     		push	{r3, r4, r5, lr}
+ 258              	.LCFI2:
+ 259              		.cfi_def_cfa_offset 16
+ 260              		.cfi_offset 3, -16
+ 261              		.cfi_offset 4, -12
+ 262              		.cfi_offset 5, -8
+ 263              		.cfi_offset 14, -4
+ 264 0002 0546     		mov	r5, r0
+  44:Drivers/PS2Xlib/Src/PS2X_lib.c **** }
+ 265              		.loc 1 44 3 is_stmt 1 view .LVU38
+  44:Drivers/PS2Xlib/Src/PS2X_lib.c **** }
+ 266              		.loc 1 44 10 is_stmt 0 view .LVU39
+ 267 0004 FFF7FEFF 		bl	NewButtonState
+ 268              	.LVL15:
+  44:Drivers/PS2Xlib/Src/PS2X_lib.c **** }
+ 269              		.loc 1 44 10 view .LVU40
+ 270 0008 0446     		mov	r4, r0
+  44:Drivers/PS2Xlib/Src/PS2X_lib.c **** }
+ 271              		.loc 1 44 35 view .LVU41
+ 272 000a A8B2     		uxth	r0, r5
+ 273 000c FFF7FEFF 		bl	Button
+ 274              	.LVL16:
+  44:Drivers/PS2Xlib/Src/PS2X_lib.c **** }
+ 275              		.loc 1 44 33 view .LVU42
+ 276 0010 2040     		ands	r0, r0, r4
+  45:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 277              		.loc 1 45 1 view .LVU43
+ 278 0012 C0B2     		uxtb	r0, r0
+ 279 0014 38BD     		pop	{r3, r4, r5, pc}
+  45:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 280              		.loc 1 45 1 view .LVU44
+ 281              		.cfi_endproc
+ 282              	.LFE72:
+ 284              		.section	.text.ButtonDataByte,"ax",%progbits
+ 285              		.align	1
+ 286              		.global	ButtonDataByte
+ 287              		.syntax unified
+ 288              		.thumb
+ 289              		.thumb_func
+ 290              		.fpu softvfp
+ARM GAS  D:\Temp\cchpYA3w.s 			page 7
+
+
+ 292              	ButtonDataByte:
+ 293              	.LFB75:
+  56:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+  57:Drivers/PS2Xlib/Src/PS2X_lib.c **** /****************************************************************************************/
+  58:Drivers/PS2Xlib/Src/PS2X_lib.c **** uint16_t ButtonDataByte() {
+ 294              		.loc 1 58 27 is_stmt 1 view -0
+ 295              		.cfi_startproc
+ 296              		@ args = 0, pretend = 0, frame = 0
+ 297              		@ frame_needed = 0, uses_anonymous_args = 0
+ 298              		@ link register save eliminated.
+  59:Drivers/PS2Xlib/Src/PS2X_lib.c ****    //return (~buttons);
+  60:Drivers/PS2Xlib/Src/PS2X_lib.c ****    return buttons;
+ 299              		.loc 1 60 4 view .LVU46
+  61:Drivers/PS2Xlib/Src/PS2X_lib.c **** }
+ 300              		.loc 1 61 1 is_stmt 0 view .LVU47
+ 301 0000 014B     		ldr	r3, .L19
+ 302 0002 1888     		ldrh	r0, [r3]
+ 303 0004 7047     		bx	lr
+ 304              	.L20:
+ 305 0006 00BF     		.align	2
+ 306              	.L19:
+ 307 0008 00000000 		.word	buttons
+ 308              		.cfi_endproc
+ 309              	.LFE75:
+ 311              		.section	.text.Analog,"ax",%progbits
+ 312              		.align	1
+ 313              		.global	Analog
+ 314              		.syntax unified
+ 315              		.thumb
+ 316              		.thumb_func
+ 317              		.fpu softvfp
+ 319              	Analog:
+ 320              	.LVL17:
+ 321              	.LFB76:
+  62:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+  63:Drivers/PS2Xlib/Src/PS2X_lib.c **** /****************************************************************************************/
+  64:Drivers/PS2Xlib/Src/PS2X_lib.c **** uint8_t Analog(uint8_t button) {
+ 322              		.loc 1 64 32 is_stmt 1 view -0
+ 323              		.cfi_startproc
+ 324              		@ args = 0, pretend = 0, frame = 0
+ 325              		@ frame_needed = 0, uses_anonymous_args = 0
+ 326              		@ link register save eliminated.
+  65:Drivers/PS2Xlib/Src/PS2X_lib.c ****    return PS2data[button];
+ 327              		.loc 1 65 4 view .LVU49
+  66:Drivers/PS2Xlib/Src/PS2X_lib.c **** }
+ 328              		.loc 1 66 1 is_stmt 0 view .LVU50
+ 329 0000 014B     		ldr	r3, .L22
+ 330 0002 185C     		ldrb	r0, [r3, r0]	@ zero_extendqisi2
+ 331              	.LVL18:
+ 332              		.loc 1 66 1 view .LVU51
+ 333 0004 7047     		bx	lr
+ 334              	.L23:
+ 335 0006 00BF     		.align	2
+ 336              	.L22:
+ 337 0008 00000000 		.word	PS2data
+ 338              		.cfi_endproc
+ 339              	.LFE76:
+ARM GAS  D:\Temp\cchpYA3w.s 			page 8
+
+
+ 341              		.section	.text._gamepad_shiftinout,"ax",%progbits
+ 342              		.align	1
+ 343              		.global	_gamepad_shiftinout
+ 344              		.syntax unified
+ 345              		.thumb
+ 346              		.thumb_func
+ 347              		.fpu softvfp
+ 349              	_gamepad_shiftinout:
+ 350              	.LVL19:
+ 351              	.LFB77:
+  67:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+  68:Drivers/PS2Xlib/Src/PS2X_lib.c **** /****************************************************************************************/
+  69:Drivers/PS2Xlib/Src/PS2X_lib.c **** unsigned char _gamepad_shiftinout (char byte) {
+ 352              		.loc 1 69 47 is_stmt 1 view -0
+ 353              		.cfi_startproc
+ 354              		@ args = 0, pretend = 0, frame = 0
+ 355              		@ frame_needed = 0, uses_anonymous_args = 0
+ 356              		.loc 1 69 47 is_stmt 0 view .LVU53
+ 357 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ 358              	.LCFI3:
+ 359              		.cfi_def_cfa_offset 24
+ 360              		.cfi_offset 4, -24
+ 361              		.cfi_offset 5, -20
+ 362              		.cfi_offset 6, -16
+ 363              		.cfi_offset 7, -12
+ 364              		.cfi_offset 8, -8
+ 365              		.cfi_offset 14, -4
+ 366 0004 0646     		mov	r6, r0
+  70:Drivers/PS2Xlib/Src/PS2X_lib.c ****    uint8_t tmp = 0;
+ 367              		.loc 1 70 4 is_stmt 1 view .LVU54
+ 368              	.LVL20:
+  71:Drivers/PS2Xlib/Src/PS2X_lib.c ****    for(uint8_t i=0;i<8;i++) {
+ 369              		.loc 1 71 4 view .LVU55
+ 370              	.LBB44:
+ 371              		.loc 1 71 8 view .LVU56
+ 372              		.loc 1 71 16 is_stmt 0 view .LVU57
+ 373 0006 0024     		movs	r4, #0
+ 374              	.LBE44:
+  70:Drivers/PS2Xlib/Src/PS2X_lib.c ****    uint8_t tmp = 0;
+ 375              		.loc 1 70 12 view .LVU58
+ 376 0008 2746     		mov	r7, r4
+ 377              	.LBB55:
+ 378              		.loc 1 71 4 view .LVU59
+ 379 000a 0FE0     		b	.L25
+ 380              	.LVL21:
+ 381              	.L26:
+  72:Drivers/PS2Xlib/Src/PS2X_lib.c ****       if(CHK(byte,i)) CMD_SET();
+  73:Drivers/PS2Xlib/Src/PS2X_lib.c ****       else CMD_CLR();
+ 382              		.loc 1 73 12 is_stmt 1 view .LVU60
+ 383              	.LBB45:
+ 384              	.LBI45:
+  74:Drivers/PS2Xlib/Src/PS2X_lib.c **** 	  
+  75:Drivers/PS2Xlib/Src/PS2X_lib.c ****       CLK_CLR();
+  76:Drivers/PS2Xlib/Src/PS2X_lib.c ****       delayMicroseconds(CTRL_CLK);
+  77:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+  78:Drivers/PS2Xlib/Src/PS2X_lib.c ****       //if(DAT_CHK()) SET(tmp,i);
+  79:Drivers/PS2Xlib/Src/PS2X_lib.c ****       if(DAT_CHK()) SET(tmp,i);
+ARM GAS  D:\Temp\cchpYA3w.s 			page 9
+
+
+  80:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+  81:Drivers/PS2Xlib/Src/PS2X_lib.c ****       CLK_SET();
+  82:Drivers/PS2Xlib/Src/PS2X_lib.c **** #if CTRL_CLK_HIGH
+  83:Drivers/PS2Xlib/Src/PS2X_lib.c ****       delayMicroseconds(CTRL_CLK_HIGH);
+  84:Drivers/PS2Xlib/Src/PS2X_lib.c **** #endif
+  85:Drivers/PS2Xlib/Src/PS2X_lib.c ****    }
+  86:Drivers/PS2Xlib/Src/PS2X_lib.c ****    CMD_SET();
+  87:Drivers/PS2Xlib/Src/PS2X_lib.c ****    CLK_CLR();
+  88:Drivers/PS2Xlib/Src/PS2X_lib.c ****    delayMicroseconds(CTRL_BYTE_DELAY);
+  89:Drivers/PS2Xlib/Src/PS2X_lib.c ****    CLK_CLR();
+  90:Drivers/PS2Xlib/Src/PS2X_lib.c ****    return tmp;
+  91:Drivers/PS2Xlib/Src/PS2X_lib.c **** }
+  92:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+  93:Drivers/PS2Xlib/Src/PS2X_lib.c **** /****************************************************************************************/
+  94:Drivers/PS2Xlib/Src/PS2X_lib.c **** void _read_gamepad(void) {
+  95:Drivers/PS2Xlib/Src/PS2X_lib.c ****    read_gamepad(false, 0x00);
+  96:Drivers/PS2Xlib/Src/PS2X_lib.c **** }
+  97:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+  98:Drivers/PS2Xlib/Src/PS2X_lib.c **** /****************************************************************************************/
+  99:Drivers/PS2Xlib/Src/PS2X_lib.c **** bool read_gamepad(bool motor1, uint8_t motor2) {
+ 100:Drivers/PS2Xlib/Src/PS2X_lib.c ****    double temp = HAL_GetTick() - last_read;
+ 101:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 102:Drivers/PS2Xlib/Src/PS2X_lib.c ****    if (temp > 1500) //waited to long
+ 103:Drivers/PS2Xlib/Src/PS2X_lib.c ****       reconfig_gamepad();
+ 104:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 105:Drivers/PS2Xlib/Src/PS2X_lib.c ****    if(temp < read_delay)  //waited too short
+ 106:Drivers/PS2Xlib/Src/PS2X_lib.c ****       //HAL_Delay(read_delay - temp);
+ 107:Drivers/PS2Xlib/Src/PS2X_lib.c ****       osDelay(read_delay - temp);
+ 108:Drivers/PS2Xlib/Src/PS2X_lib.c ****       
+ 109:Drivers/PS2Xlib/Src/PS2X_lib.c ****       
+ 110:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 111:Drivers/PS2Xlib/Src/PS2X_lib.c ****    if(motor2 != 0x00)
+ 112:Drivers/PS2Xlib/Src/PS2X_lib.c ****       motor2 = map(motor2,0,255,0x40,0xFF); //noting below 40 will make it spin
+ 113:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 114:Drivers/PS2Xlib/Src/PS2X_lib.c ****  
+ 115:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 116:Drivers/PS2Xlib/Src/PS2X_lib.c ****    uint8_t dword[9] = {0x01,0x42,0,motor1,motor2,0,0,0,0};
+ 117:Drivers/PS2Xlib/Src/PS2X_lib.c ****    uint8_t dword2[12] = {0,0,0,0,0,0,0,0,0,0,0,0};
+ 118:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 119:Drivers/PS2Xlib/Src/PS2X_lib.c ****    // Try a few times to get valid data...
+ 120:Drivers/PS2Xlib/Src/PS2X_lib.c ****    for (uint8_t RetryCnt = 0; RetryCnt < 5; RetryCnt++) {
+ 121:Drivers/PS2Xlib/Src/PS2X_lib.c ****       CMD_SET();
+ 122:Drivers/PS2Xlib/Src/PS2X_lib.c ****       
+ 123:Drivers/PS2Xlib/Src/PS2X_lib.c ****       ATT_CLR(); // low enable joystick
+ 124:Drivers/PS2Xlib/Src/PS2X_lib.c ****       CLK_SET();
+ 125:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 126:Drivers/PS2Xlib/Src/PS2X_lib.c ****       delayMicroseconds(CTRL_BYTE_DELAY);
+ 127:Drivers/PS2Xlib/Src/PS2X_lib.c ****       //Send the command to send button and joystick data;
+ 128:Drivers/PS2Xlib/Src/PS2X_lib.c ****       for (int i = 0; i<9; i++) {
+ 129:Drivers/PS2Xlib/Src/PS2X_lib.c ****          PS2data[i] = _gamepad_shiftinout(dword[i]);
+ 130:Drivers/PS2Xlib/Src/PS2X_lib.c ****       }
+ 131:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 132:Drivers/PS2Xlib/Src/PS2X_lib.c ****       if(PS2data[1] == 0x79) {  //if controller is in full data return mode, get the rest of data
+ 133:Drivers/PS2Xlib/Src/PS2X_lib.c ****       
+ 134:Drivers/PS2Xlib/Src/PS2X_lib.c ****          for (int i = 0; i<12; i++) {
+ 135:Drivers/PS2Xlib/Src/PS2X_lib.c ****             PS2data[i+9] = _gamepad_shiftinout(dword2[i]);
+ 136:Drivers/PS2Xlib/Src/PS2X_lib.c ****          }
+ARM GAS  D:\Temp\cchpYA3w.s 			page 10
+
+
+ 137:Drivers/PS2Xlib/Src/PS2X_lib.c ****       }
+ 138:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 139:Drivers/PS2Xlib/Src/PS2X_lib.c ****       ATT_SET(); // HI disable joystick
+ 140:Drivers/PS2Xlib/Src/PS2X_lib.c ****       // Check to see if we received valid data or not.  
+ 141:Drivers/PS2Xlib/Src/PS2X_lib.c **** 	  // We should be in analog mode for our data to be valid (analog == 0x7_)
+ 142:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 143:Drivers/PS2Xlib/Src/PS2X_lib.c ****     
+ 144:Drivers/PS2Xlib/Src/PS2X_lib.c ****       if ((PS2data[1] & 0xf0) == 0x70)
+ 145:Drivers/PS2Xlib/Src/PS2X_lib.c ****         return true;
+ 146:Drivers/PS2Xlib/Src/PS2X_lib.c ****          //break;
+ 147:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 148:Drivers/PS2Xlib/Src/PS2X_lib.c ****       // If we got to here, we are not in analog mode, try to recover...
+ 149:Drivers/PS2Xlib/Src/PS2X_lib.c ****       reconfig_gamepad(); // try to get back into Analog mode.
+ 150:Drivers/PS2Xlib/Src/PS2X_lib.c ****       //HAL_Delay(read_delay);
+ 151:Drivers/PS2Xlib/Src/PS2X_lib.c ****       osDelay(read_delay);
+ 152:Drivers/PS2Xlib/Src/PS2X_lib.c ****    }
+ 153:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 154:Drivers/PS2Xlib/Src/PS2X_lib.c ****    // If we get here and still not in analog mode (=0x7_), try increasing the read_delay...
+ 155:Drivers/PS2Xlib/Src/PS2X_lib.c ****    if ((PS2data[1] & 0xf0) != 0x70) {
+ 156:Drivers/PS2Xlib/Src/PS2X_lib.c ****       if (read_delay < 10)
+ 157:Drivers/PS2Xlib/Src/PS2X_lib.c ****          read_delay++;   // see if this helps out...
+ 158:Drivers/PS2Xlib/Src/PS2X_lib.c ****    }
+ 159:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 160:Drivers/PS2Xlib/Src/PS2X_lib.c **** #ifdef PS2X_COM_DEBUG
+ 161:Drivers/PS2Xlib/Src/PS2X_lib.c ****    Serial.print("OUT:IN ");
+ 162:Drivers/PS2Xlib/Src/PS2X_lib.c ****    for(int i=0; i<9; i++){
+ 163:Drivers/PS2Xlib/Src/PS2X_lib.c ****       Serial.print(dword[i], HEX);
+ 164:Drivers/PS2Xlib/Src/PS2X_lib.c ****       Serial.print(":");
+ 165:Drivers/PS2Xlib/Src/PS2X_lib.c ****       Serial.print(PS2data[i], HEX);
+ 166:Drivers/PS2Xlib/Src/PS2X_lib.c ****       Serial.print(" ");
+ 167:Drivers/PS2Xlib/Src/PS2X_lib.c ****    }
+ 168:Drivers/PS2Xlib/Src/PS2X_lib.c ****    for (int i = 0; i<12; i++) {
+ 169:Drivers/PS2Xlib/Src/PS2X_lib.c ****       Serial.print(dword2[i], HEX);
+ 170:Drivers/PS2Xlib/Src/PS2X_lib.c ****       Serial.print(":");
+ 171:Drivers/PS2Xlib/Src/PS2X_lib.c ****       Serial.print(PS2data[i+9], HEX);
+ 172:Drivers/PS2Xlib/Src/PS2X_lib.c ****       Serial.print(" ");
+ 173:Drivers/PS2Xlib/Src/PS2X_lib.c ****    }
+ 174:Drivers/PS2Xlib/Src/PS2X_lib.c ****    Serial.println("");
+ 175:Drivers/PS2Xlib/Src/PS2X_lib.c **** #endif
+ 176:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 177:Drivers/PS2Xlib/Src/PS2X_lib.c ****    last_buttons = buttons; //store the previous buttons states
+ 178:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 179:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 180:Drivers/PS2Xlib/Src/PS2X_lib.c ****    buttons =  (uint16_t)(PS2data[4] << 8) + PS2data[3];   //store as one value for multiple functio
+ 181:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 182:Drivers/PS2Xlib/Src/PS2X_lib.c ****    last_read = HAL_GetTick();
+ 183:Drivers/PS2Xlib/Src/PS2X_lib.c ****    return ((PS2data[1] & 0xf0) == 0x70);  // 1 = OK = analog mode - 0 = NOK
+ 184:Drivers/PS2Xlib/Src/PS2X_lib.c **** }
+ 185:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 186:Drivers/PS2Xlib/Src/PS2X_lib.c **** /****************************************************************************************/
+ 187:Drivers/PS2Xlib/Src/PS2X_lib.c **** uint8_t _config_gamepad(uint8_t clk, uint8_t cmd, uint8_t att, uint8_t dat) {
+ 188:Drivers/PS2Xlib/Src/PS2X_lib.c ****    return config_gamepad(clk, cmd, att, dat, false, false);
+ 189:Drivers/PS2Xlib/Src/PS2X_lib.c **** }
+ 190:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 191:Drivers/PS2Xlib/Src/PS2X_lib.c **** uint8_t config_gamepad(uint8_t clk, uint8_t cmd, uint8_t att, uint8_t dat, bool pressures, bool rum
+ 192:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 193:Drivers/PS2Xlib/Src/PS2X_lib.c ****   uint8_t temp[sizeof(type_read)];
+ARM GAS  D:\Temp\cchpYA3w.s 			page 11
+
+
+ 194:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 195:Drivers/PS2Xlib/Src/PS2X_lib.c ****   CMD_SET(); // SET(*_cmd_oreg,_cmd_mask);
+ 196:Drivers/PS2Xlib/Src/PS2X_lib.c ****   CLK_SET();
+ 197:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 198:Drivers/PS2Xlib/Src/PS2X_lib.c ****   //new error checking. First, read gamepad a few times to see if it's talking
+ 199:Drivers/PS2Xlib/Src/PS2X_lib.c ****   for(int i = 0; i < 10; i++)
+ 200:Drivers/PS2Xlib/Src/PS2X_lib.c ****     _read_gamepad();
+ 201:Drivers/PS2Xlib/Src/PS2X_lib.c ****   
+ 202:Drivers/PS2Xlib/Src/PS2X_lib.c ****   //see if it talked - see if mode came back. 
+ 203:Drivers/PS2Xlib/Src/PS2X_lib.c ****   //If still anything but 41, 73 or 79, then it's not talking
+ 204:Drivers/PS2Xlib/Src/PS2X_lib.c ****   
+ 205:Drivers/PS2Xlib/Src/PS2X_lib.c ****   if(PS2data[1] != 0x41 && PS2data[1] != 0x42 && PS2data[1] != 0x73 && PS2data[1] != 0x79){ 
+ 206:Drivers/PS2Xlib/Src/PS2X_lib.c **** #ifdef PS2X_DEBUG
+ 207:Drivers/PS2Xlib/Src/PS2X_lib.c ****     Serial.println("Controller mode not matched or no controller found");
+ 208:Drivers/PS2Xlib/Src/PS2X_lib.c ****     Serial.print("Expected 0x41, 0x42, 0x73 or 0x79, but got ");
+ 209:Drivers/PS2Xlib/Src/PS2X_lib.c ****     Serial.println(PS2data[1], HEX);
+ 210:Drivers/PS2Xlib/Src/PS2X_lib.c **** #endif
+ 211:Drivers/PS2Xlib/Src/PS2X_lib.c ****  
+ 212:Drivers/PS2Xlib/Src/PS2X_lib.c ****     return 1; //return error code 1
+ 213:Drivers/PS2Xlib/Src/PS2X_lib.c ****   }
+ 214:Drivers/PS2Xlib/Src/PS2X_lib.c ****   
+ 215:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 216:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 217:Drivers/PS2Xlib/Src/PS2X_lib.c ****   //try setting mode, increasing delays if need be.
+ 218:Drivers/PS2Xlib/Src/PS2X_lib.c ****   read_delay = 1;
+ 219:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 220:Drivers/PS2Xlib/Src/PS2X_lib.c ****   for(int y = 0; y <= 10; y++) {
+ 221:Drivers/PS2Xlib/Src/PS2X_lib.c ****     sendCommandString(enter_config, sizeof(enter_config)); //start config run
+ 222:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 223:Drivers/PS2Xlib/Src/PS2X_lib.c ****     //read type
+ 224:Drivers/PS2Xlib/Src/PS2X_lib.c ****    //// delayMicroseconds(CTRL_BYTE_DELAY);
+ 225:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 226:Drivers/PS2Xlib/Src/PS2X_lib.c ****     CMD_SET();
+ 227:Drivers/PS2Xlib/Src/PS2X_lib.c ****     
+ 228:Drivers/PS2Xlib/Src/PS2X_lib.c ****     ATT_CLR(); // low enable joystick
+ 229:Drivers/PS2Xlib/Src/PS2X_lib.c ****     CLK_SET();
+ 230:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 231:Drivers/PS2Xlib/Src/PS2X_lib.c ****     delayMicroseconds(CTRL_BYTE_DELAY);
+ 232:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 233:Drivers/PS2Xlib/Src/PS2X_lib.c ****     for (int i = 0; i<9; i++) {
+ 234:Drivers/PS2Xlib/Src/PS2X_lib.c ****       temp[i] = _gamepad_shiftinout(type_read[i]);
+ 235:Drivers/PS2Xlib/Src/PS2X_lib.c ****     }
+ 236:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 237:Drivers/PS2Xlib/Src/PS2X_lib.c ****     ATT_SET(); // HI disable joystick
+ 238:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 239:Drivers/PS2Xlib/Src/PS2X_lib.c ****     controller_type = temp[3];
+ 240:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 241:Drivers/PS2Xlib/Src/PS2X_lib.c ****     sendCommandString(set_mode, sizeof(set_mode));
+ 242:Drivers/PS2Xlib/Src/PS2X_lib.c ****     if(rumble){ sendCommandString(enable_rumble, sizeof(enable_rumble)); en_Rumble = true; }
+ 243:Drivers/PS2Xlib/Src/PS2X_lib.c ****     if(pressures){ sendCommandString(set_bytes_large, sizeof(set_bytes_large)); en_Pressures = true
+ 244:Drivers/PS2Xlib/Src/PS2X_lib.c ****     sendCommandString(exit_config, sizeof(exit_config));
+ 245:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 246:Drivers/PS2Xlib/Src/PS2X_lib.c ****     _read_gamepad();
+ 247:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 248:Drivers/PS2Xlib/Src/PS2X_lib.c ****     if(pressures){
+ 249:Drivers/PS2Xlib/Src/PS2X_lib.c ****       if(PS2data[1] == 0x79)
+ 250:Drivers/PS2Xlib/Src/PS2X_lib.c ****         break;
+ARM GAS  D:\Temp\cchpYA3w.s 			page 12
+
+
+ 251:Drivers/PS2Xlib/Src/PS2X_lib.c ****       if(PS2data[1] == 0x73)
+ 252:Drivers/PS2Xlib/Src/PS2X_lib.c ****         return 3;
+ 253:Drivers/PS2Xlib/Src/PS2X_lib.c ****     }
+ 254:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 255:Drivers/PS2Xlib/Src/PS2X_lib.c ****     if(PS2data[1] == 0x73)
+ 256:Drivers/PS2Xlib/Src/PS2X_lib.c ****       break;
+ 257:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 258:Drivers/PS2Xlib/Src/PS2X_lib.c ****     if(y == 10){
+ 259:Drivers/PS2Xlib/Src/PS2X_lib.c **** #ifdef PS2X_DEBUG
+ 260:Drivers/PS2Xlib/Src/PS2X_lib.c ****       Serial.println("Controller not accepting commands");
+ 261:Drivers/PS2Xlib/Src/PS2X_lib.c ****       Serial.print("mode still set at");
+ 262:Drivers/PS2Xlib/Src/PS2X_lib.c ****       Serial.println(PS2data[1], HEX);
+ 263:Drivers/PS2Xlib/Src/PS2X_lib.c **** #endif
+ 264:Drivers/PS2Xlib/Src/PS2X_lib.c ****       return 2; //exit function with error
+ 265:Drivers/PS2Xlib/Src/PS2X_lib.c ****     }
+ 266:Drivers/PS2Xlib/Src/PS2X_lib.c ****     read_delay += 1; //add 1ms to read_delay
+ 267:Drivers/PS2Xlib/Src/PS2X_lib.c ****   }
+ 268:Drivers/PS2Xlib/Src/PS2X_lib.c ****   return 0; //no error if here
+ 269:Drivers/PS2Xlib/Src/PS2X_lib.c **** }
+ 270:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 271:Drivers/PS2Xlib/Src/PS2X_lib.c **** /****************************************************************************************/
+ 272:Drivers/PS2Xlib/Src/PS2X_lib.c **** void sendCommandString(uint8_t string[], uint8_t len) {
+ 273:Drivers/PS2Xlib/Src/PS2X_lib.c **** #ifdef PS2X_COM_DEBUG
+ 274:Drivers/PS2Xlib/Src/PS2X_lib.c ****   byte temp[len];
+ 275:Drivers/PS2Xlib/Src/PS2X_lib.c ****   ATT_CLR(); // low enable joystick
+ 276:Drivers/PS2Xlib/Src/PS2X_lib.c ****   delayMicroseconds(CTRL_BYTE_DELAY);
+ 277:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 278:Drivers/PS2Xlib/Src/PS2X_lib.c ****   for (int y=0; y < len; y++)
+ 279:Drivers/PS2Xlib/Src/PS2X_lib.c ****     temp[y] = _gamepad_shiftinout(string[y]);
+ 280:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 281:Drivers/PS2Xlib/Src/PS2X_lib.c ****   ATT_SET(); //high disable joystick
+ 282:Drivers/PS2Xlib/Src/PS2X_lib.c ****   delay(read_delay); //wait a few
+ 283:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 284:Drivers/PS2Xlib/Src/PS2X_lib.c ****   Serial.println("OUT:IN Configure");
+ 285:Drivers/PS2Xlib/Src/PS2X_lib.c ****   for(int i=0; i<len; i++) {
+ 286:Drivers/PS2Xlib/Src/PS2X_lib.c ****     Serial.print(string[i], HEX);
+ 287:Drivers/PS2Xlib/Src/PS2X_lib.c ****     Serial.print(":");
+ 288:Drivers/PS2Xlib/Src/PS2X_lib.c ****     Serial.print(temp[i], HEX);
+ 289:Drivers/PS2Xlib/Src/PS2X_lib.c ****     Serial.print(" ");
+ 290:Drivers/PS2Xlib/Src/PS2X_lib.c ****   }
+ 291:Drivers/PS2Xlib/Src/PS2X_lib.c ****   Serial.println("");
+ 292:Drivers/PS2Xlib/Src/PS2X_lib.c **** #else
+ 293:Drivers/PS2Xlib/Src/PS2X_lib.c ****   ATT_CLR(); // low enable joystick
+ 294:Drivers/PS2Xlib/Src/PS2X_lib.c ****   //delayMicroseconds(CTRL_BYTE_DELAY);
+ 295:Drivers/PS2Xlib/Src/PS2X_lib.c ****   delayMicroseconds(CICLE_TIME);
+ 296:Drivers/PS2Xlib/Src/PS2X_lib.c ****   for (int y=0; y < len; y++)
+ 297:Drivers/PS2Xlib/Src/PS2X_lib.c ****     _gamepad_shiftinout(string[y]);
+ 298:Drivers/PS2Xlib/Src/PS2X_lib.c ****   ATT_SET(); //high disable joystick
+ 299:Drivers/PS2Xlib/Src/PS2X_lib.c ****   //HAL_Delay(read_delay);                  //wait a few
+ 300:Drivers/PS2Xlib/Src/PS2X_lib.c ****   osDelay(read_delay);                  //wait a few
+ 301:Drivers/PS2Xlib/Src/PS2X_lib.c **** #endif
+ 302:Drivers/PS2Xlib/Src/PS2X_lib.c **** }
+ 303:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 304:Drivers/PS2Xlib/Src/PS2X_lib.c **** /****************************************************************************************/
+ 305:Drivers/PS2Xlib/Src/PS2X_lib.c **** uint8_t readType() {
+ 306:Drivers/PS2Xlib/Src/PS2X_lib.c **** /*
+ 307:Drivers/PS2Xlib/Src/PS2X_lib.c ****   byte temp[sizeof(type_read)];
+ARM GAS  D:\Temp\cchpYA3w.s 			page 13
+
+
+ 308:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 309:Drivers/PS2Xlib/Src/PS2X_lib.c ****   sendCommandString(enter_config, sizeof(enter_config));
+ 310:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 311:Drivers/PS2Xlib/Src/PS2X_lib.c ****   delayMicroseconds(CTRL_BYTE_DELAY);
+ 312:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 313:Drivers/PS2Xlib/Src/PS2X_lib.c ****   CMD_SET();
+ 314:Drivers/PS2Xlib/Src/PS2X_lib.c ****   CLK_SET();
+ 315:Drivers/PS2Xlib/Src/PS2X_lib.c ****   ATT_CLR(); // low enable joystick
+ 316:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 317:Drivers/PS2Xlib/Src/PS2X_lib.c ****   delayMicroseconds(CTRL_BYTE_DELAY);
+ 318:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 319:Drivers/PS2Xlib/Src/PS2X_lib.c ****   for (int i = 0; i<9; i++) {
+ 320:Drivers/PS2Xlib/Src/PS2X_lib.c ****     temp[i] = _gamepad_shiftinout(type_read[i]);
+ 321:Drivers/PS2Xlib/Src/PS2X_lib.c ****   }
+ 322:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 323:Drivers/PS2Xlib/Src/PS2X_lib.c ****   sendCommandString(exit_config, sizeof(exit_config));
+ 324:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 325:Drivers/PS2Xlib/Src/PS2X_lib.c ****   if(temp[3] == 0x03)
+ 326:Drivers/PS2Xlib/Src/PS2X_lib.c ****     return 1;
+ 327:Drivers/PS2Xlib/Src/PS2X_lib.c ****   else if(temp[3] == 0x01)
+ 328:Drivers/PS2Xlib/Src/PS2X_lib.c ****     return 2;
+ 329:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 330:Drivers/PS2Xlib/Src/PS2X_lib.c ****   return 0;
+ 331:Drivers/PS2Xlib/Src/PS2X_lib.c **** */
+ 332:Drivers/PS2Xlib/Src/PS2X_lib.c ****   //Serial.print("Controller_type: ");
+ 333:Drivers/PS2Xlib/Src/PS2X_lib.c ****   //Serial.println(controller_type, HEX);
+ 334:Drivers/PS2Xlib/Src/PS2X_lib.c ****   if(controller_type == 0x03)
+ 335:Drivers/PS2Xlib/Src/PS2X_lib.c ****     return 1;
+ 336:Drivers/PS2Xlib/Src/PS2X_lib.c ****   else if(controller_type == 0x01 && PS2data[1] == 0x42)
+ 337:Drivers/PS2Xlib/Src/PS2X_lib.c **** 	return 4;
+ 338:Drivers/PS2Xlib/Src/PS2X_lib.c ****   else if(controller_type == 0x01 && PS2data[1] != 0x42)
+ 339:Drivers/PS2Xlib/Src/PS2X_lib.c ****     return 2;
+ 340:Drivers/PS2Xlib/Src/PS2X_lib.c ****   else if(controller_type == 0x0C)  
+ 341:Drivers/PS2Xlib/Src/PS2X_lib.c ****     return 3;  //2.4G Wireless Dual Shock PS2 Game Controller
+ 342:Drivers/PS2Xlib/Src/PS2X_lib.c **** 	
+ 343:Drivers/PS2Xlib/Src/PS2X_lib.c ****   return 0;
+ 344:Drivers/PS2Xlib/Src/PS2X_lib.c **** }
+ 345:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 346:Drivers/PS2Xlib/Src/PS2X_lib.c **** /****************************************************************************************/
+ 347:Drivers/PS2Xlib/Src/PS2X_lib.c **** void enableRumble() {
+ 348:Drivers/PS2Xlib/Src/PS2X_lib.c ****   sendCommandString(enter_config, sizeof(enter_config));
+ 349:Drivers/PS2Xlib/Src/PS2X_lib.c ****   sendCommandString(enable_rumble, sizeof(enable_rumble));
+ 350:Drivers/PS2Xlib/Src/PS2X_lib.c ****   sendCommandString(exit_config, sizeof(exit_config));
+ 351:Drivers/PS2Xlib/Src/PS2X_lib.c ****   en_Rumble = true;
+ 352:Drivers/PS2Xlib/Src/PS2X_lib.c **** }
+ 353:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 354:Drivers/PS2Xlib/Src/PS2X_lib.c **** /****************************************************************************************/
+ 355:Drivers/PS2Xlib/Src/PS2X_lib.c **** bool enablePressures() {
+ 356:Drivers/PS2Xlib/Src/PS2X_lib.c ****   sendCommandString(enter_config, sizeof(enter_config));
+ 357:Drivers/PS2Xlib/Src/PS2X_lib.c ****   sendCommandString(set_bytes_large, sizeof(set_bytes_large));
+ 358:Drivers/PS2Xlib/Src/PS2X_lib.c ****   sendCommandString(exit_config, sizeof(exit_config));
+ 359:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 360:Drivers/PS2Xlib/Src/PS2X_lib.c ****   _read_gamepad();
+ 361:Drivers/PS2Xlib/Src/PS2X_lib.c ****   _read_gamepad();
+ 362:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 363:Drivers/PS2Xlib/Src/PS2X_lib.c ****   if(PS2data[1] != 0x79)
+ 364:Drivers/PS2Xlib/Src/PS2X_lib.c ****     return false;
+ARM GAS  D:\Temp\cchpYA3w.s 			page 14
+
+
+ 365:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 366:Drivers/PS2Xlib/Src/PS2X_lib.c ****   en_Pressures = true;
+ 367:Drivers/PS2Xlib/Src/PS2X_lib.c ****     return true;
+ 368:Drivers/PS2Xlib/Src/PS2X_lib.c **** }
+ 369:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 370:Drivers/PS2Xlib/Src/PS2X_lib.c **** /****************************************************************************************/
+ 371:Drivers/PS2Xlib/Src/PS2X_lib.c **** void reconfig_gamepad(){
+ 372:Drivers/PS2Xlib/Src/PS2X_lib.c ****   sendCommandString(enter_config, sizeof(enter_config));
+ 373:Drivers/PS2Xlib/Src/PS2X_lib.c ****   sendCommandString(set_mode, sizeof(set_mode));
+ 374:Drivers/PS2Xlib/Src/PS2X_lib.c ****   if (en_Rumble)
+ 375:Drivers/PS2Xlib/Src/PS2X_lib.c ****     sendCommandString(enable_rumble, sizeof(enable_rumble));
+ 376:Drivers/PS2Xlib/Src/PS2X_lib.c ****   if (en_Pressures)
+ 377:Drivers/PS2Xlib/Src/PS2X_lib.c ****     sendCommandString(set_bytes_large, sizeof(set_bytes_large));
+ 378:Drivers/PS2Xlib/Src/PS2X_lib.c ****   sendCommandString(exit_config, sizeof(exit_config));
+ 379:Drivers/PS2Xlib/Src/PS2X_lib.c **** }
+ 380:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 381:Drivers/PS2Xlib/Src/PS2X_lib.c **** /****************************************************************************************/
+ 382:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 383:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 384:Drivers/PS2Xlib/Src/PS2X_lib.c **** // Let's just use digitalWrite() on ESP8266.
+ 385:Drivers/PS2Xlib/Src/PS2X_lib.c **** inline void  CLK_SET(void) {
+ 386:Drivers/PS2Xlib/Src/PS2X_lib.c ****   //digitalWrite(_clk_pin, HIGH);
+ 387:Drivers/PS2Xlib/Src/PS2X_lib.c ****   HAL_GPIO_WritePin(CLK_GPIO_Port, CLK_Pin, GPIO_PIN_SET);
+ 388:Drivers/PS2Xlib/Src/PS2X_lib.c **** }
+ 389:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 390:Drivers/PS2Xlib/Src/PS2X_lib.c **** inline void  CLK_CLR(void) {
+ 391:Drivers/PS2Xlib/Src/PS2X_lib.c ****   //digitalWrite(_clk_pin, LOW);
+ 392:Drivers/PS2Xlib/Src/PS2X_lib.c ****   HAL_GPIO_WritePin(CLK_GPIO_Port, CLK_Pin, GPIO_PIN_RESET);
+ 393:Drivers/PS2Xlib/Src/PS2X_lib.c **** }
+ 394:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 395:Drivers/PS2Xlib/Src/PS2X_lib.c **** inline void  CMD_SET(void) {
+ 396:Drivers/PS2Xlib/Src/PS2X_lib.c **** //  digitalWrite(_cmd_pin, HIGH);
+ 397:Drivers/PS2Xlib/Src/PS2X_lib.c ****   HAL_GPIO_WritePin(CLK_GPIO_Port, MISO_Pin, GPIO_PIN_SET);
+ 398:Drivers/PS2Xlib/Src/PS2X_lib.c **** }
+ 399:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 400:Drivers/PS2Xlib/Src/PS2X_lib.c **** inline void  CMD_CLR(void) {
+ 385              		.loc 1 400 14 view .LVU61
+ 386              	.LBB46:
+ 401:Drivers/PS2Xlib/Src/PS2X_lib.c ****   //digitalWrite(_cmd_pin, LOW);
+ 402:Drivers/PS2Xlib/Src/PS2X_lib.c ****   HAL_GPIO_WritePin(CLK_GPIO_Port, MISO_Pin, GPIO_PIN_RESET);
+ 387              		.loc 1 402 3 view .LVU62
+ 388 000c 0022     		movs	r2, #0
+ 389 000e 4021     		movs	r1, #64
+ 390 0010 2248     		ldr	r0, .L32
+ 391 0012 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 392              	.LVL22:
+ 393 0016 16E0     		b	.L27
+ 394              	.L28:
+ 395              		.loc 1 402 3 is_stmt 0 view .LVU63
+ 396              	.LBE46:
+ 397              	.LBE45:
+  81:Drivers/PS2Xlib/Src/PS2X_lib.c **** #if CTRL_CLK_HIGH
+ 398              		.loc 1 81 7 is_stmt 1 discriminator 2 view .LVU64
+ 399              	.LBB47:
+ 400              	.LBI47:
+ 385:Drivers/PS2Xlib/Src/PS2X_lib.c ****   //digitalWrite(_clk_pin, HIGH);
+ 401              		.loc 1 385 14 discriminator 2 view .LVU65
+ARM GAS  D:\Temp\cchpYA3w.s 			page 15
+
+
+ 402              	.LBB48:
+ 387:Drivers/PS2Xlib/Src/PS2X_lib.c **** }
+ 403              		.loc 1 387 3 discriminator 2 view .LVU66
+ 404 0018 0122     		movs	r2, #1
+ 405 001a 2021     		movs	r1, #32
+ 406 001c 1F48     		ldr	r0, .L32
+ 407 001e FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 408              	.LVL23:
+ 409              	.LBE48:
+ 410              	.LBE47:
+  83:Drivers/PS2Xlib/Src/PS2X_lib.c **** #endif
+ 411              		.loc 1 83 7 discriminator 2 view .LVU67
+ 412 0022 0220     		movs	r0, #2
+ 413 0024 FFF7FEFF 		bl	delayMicroseconds
+ 414              	.LVL24:
+  71:Drivers/PS2Xlib/Src/PS2X_lib.c ****       if(CHK(byte,i)) CMD_SET();
+ 415              		.loc 1 71 25 is_stmt 0 discriminator 2 view .LVU68
+ 416 0028 0134     		adds	r4, r4, #1
+ 417              	.LVL25:
+  71:Drivers/PS2Xlib/Src/PS2X_lib.c ****       if(CHK(byte,i)) CMD_SET();
+ 418              		.loc 1 71 25 discriminator 2 view .LVU69
+ 419 002a E4B2     		uxtb	r4, r4
+ 420              	.LVL26:
+ 421              	.L25:
+  71:Drivers/PS2Xlib/Src/PS2X_lib.c ****       if(CHK(byte,i)) CMD_SET();
+ 422              		.loc 1 71 4 discriminator 1 view .LVU70
+ 423 002c 072C     		cmp	r4, #7
+ 424 002e 1FD8     		bhi	.L31
+  72:Drivers/PS2Xlib/Src/PS2X_lib.c ****       else CMD_CLR();
+ 425              		.loc 1 72 7 is_stmt 1 view .LVU71
+  72:Drivers/PS2Xlib/Src/PS2X_lib.c ****       else CMD_CLR();
+ 426              		.loc 1 72 10 is_stmt 0 view .LVU72
+ 427 0030 A046     		mov	r8, r4
+ 428 0032 46FA04F3 		asr	r3, r6, r4
+  72:Drivers/PS2Xlib/Src/PS2X_lib.c ****       else CMD_CLR();
+ 429              		.loc 1 72 9 view .LVU73
+ 430 0036 13F0010F 		tst	r3, #1
+ 431 003a E7D0     		beq	.L26
+  72:Drivers/PS2Xlib/Src/PS2X_lib.c ****       else CMD_CLR();
+ 432              		.loc 1 72 23 is_stmt 1 view .LVU74
+ 433              	.LBB49:
+ 434              	.LBI49:
+ 395:Drivers/PS2Xlib/Src/PS2X_lib.c **** //  digitalWrite(_cmd_pin, HIGH);
+ 435              		.loc 1 395 14 view .LVU75
+ 436              	.LBB50:
+ 397:Drivers/PS2Xlib/Src/PS2X_lib.c **** }
+ 437              		.loc 1 397 3 view .LVU76
+ 438 003c 0122     		movs	r2, #1
+ 439 003e 4021     		movs	r1, #64
+ 440 0040 1648     		ldr	r0, .L32
+ 441 0042 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 442              	.LVL27:
+ 443              	.L27:
+ 444              	.LBE50:
+ 445              	.LBE49:
+  75:Drivers/PS2Xlib/Src/PS2X_lib.c ****       delayMicroseconds(CTRL_CLK);
+ 446              		.loc 1 75 7 view .LVU77
+ARM GAS  D:\Temp\cchpYA3w.s 			page 16
+
+
+ 447              	.LBB51:
+ 448              	.LBI51:
+ 390:Drivers/PS2Xlib/Src/PS2X_lib.c ****   //digitalWrite(_clk_pin, LOW);
+ 449              		.loc 1 390 14 view .LVU78
+ 450              	.LBB52:
+ 392:Drivers/PS2Xlib/Src/PS2X_lib.c **** }
+ 451              		.loc 1 392 3 view .LVU79
+ 452 0046 154D     		ldr	r5, .L32
+ 453 0048 0022     		movs	r2, #0
+ 454 004a 2021     		movs	r1, #32
+ 455 004c 2846     		mov	r0, r5
+ 456 004e FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 457              	.LVL28:
+ 458              	.LBE52:
+ 459              	.LBE51:
+  76:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 460              		.loc 1 76 7 view .LVU80
+ 461 0052 0220     		movs	r0, #2
+ 462 0054 FFF7FEFF 		bl	delayMicroseconds
+ 463              	.LVL29:
+  79:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 464              		.loc 1 79 7 view .LVU81
+ 465              	.LBB53:
+ 466              	.LBI53:
+ 403:Drivers/PS2Xlib/Src/PS2X_lib.c **** }
+ 404:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 405:Drivers/PS2Xlib/Src/PS2X_lib.c **** inline void  ATT_SET(void) {
+ 406:Drivers/PS2Xlib/Src/PS2X_lib.c ****  // digitalWrite(_att_pin, HIGH);
+ 407:Drivers/PS2Xlib/Src/PS2X_lib.c ****   HAL_GPIO_WritePin(CS_GPIO_Port, CS_Pin, GPIO_PIN_SET);
+ 408:Drivers/PS2Xlib/Src/PS2X_lib.c ****   HAL_GPIO_WritePin(CLK_GPIO_Port, CLK_Pin, GPIO_PIN_RESET);
+ 409:Drivers/PS2Xlib/Src/PS2X_lib.c **** }
+ 410:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 411:Drivers/PS2Xlib/Src/PS2X_lib.c **** inline void ATT_CLR(void) {
+ 412:Drivers/PS2Xlib/Src/PS2X_lib.c ****   //digitalWrite(_att_pin, LOW);
+ 413:Drivers/PS2Xlib/Src/PS2X_lib.c ****   HAL_GPIO_WritePin(CS_GPIO_Port, CS_Pin, GPIO_PIN_RESET);
+ 414:Drivers/PS2Xlib/Src/PS2X_lib.c **** }
+ 415:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 416:Drivers/PS2Xlib/Src/PS2X_lib.c **** inline bool DAT_CHK(void) {
+ 467              		.loc 1 416 13 view .LVU82
+ 468              	.LBB54:
+ 417:Drivers/PS2Xlib/Src/PS2X_lib.c ****   //return digitalRead(_dat_pin) ? true : false;
+ 418:Drivers/PS2Xlib/Src/PS2X_lib.c ****   return HAL_GPIO_ReadPin(CLK_GPIO_Port, MOSI_Pin) ? true : false;
+ 469              		.loc 1 418 3 view .LVU83
+ 470              		.loc 1 418 10 is_stmt 0 view .LVU84
+ 471 0058 8021     		movs	r1, #128
+ 472 005a 2846     		mov	r0, r5
+ 473 005c FFF7FEFF 		bl	HAL_GPIO_ReadPin
+ 474              	.LVL30:
+ 475              	.LBE54:
+ 476              	.LBE53:
+  79:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 477              		.loc 1 79 9 view .LVU85
+ 478 0060 0028     		cmp	r0, #0
+ 479 0062 D9D0     		beq	.L28
+  79:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 480              		.loc 1 79 21 is_stmt 1 discriminator 1 view .LVU86
+ 481 0064 0120     		movs	r0, #1
+ARM GAS  D:\Temp\cchpYA3w.s 			page 17
+
+
+ 482 0066 00FA08F0 		lsl	r0, r0, r8
+ 483 006a 3843     		orrs	r0, r0, r7
+ 484 006c C7B2     		uxtb	r7, r0
+ 485              	.LVL31:
+  79:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 486              		.loc 1 79 21 is_stmt 0 discriminator 1 view .LVU87
+ 487 006e D3E7     		b	.L28
+ 488              	.L31:
+  79:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 489              		.loc 1 79 21 discriminator 1 view .LVU88
+ 490              	.LBE55:
+  86:Drivers/PS2Xlib/Src/PS2X_lib.c ****    CLK_CLR();
+ 491              		.loc 1 86 4 is_stmt 1 view .LVU89
+ 492              	.LBB56:
+ 493              	.LBI56:
+ 395:Drivers/PS2Xlib/Src/PS2X_lib.c **** //  digitalWrite(_cmd_pin, HIGH);
+ 494              		.loc 1 395 14 view .LVU90
+ 495              	.LBB57:
+ 397:Drivers/PS2Xlib/Src/PS2X_lib.c **** }
+ 496              		.loc 1 397 3 view .LVU91
+ 497 0070 0A4C     		ldr	r4, .L32
+ 498              	.LVL32:
+ 397:Drivers/PS2Xlib/Src/PS2X_lib.c **** }
+ 499              		.loc 1 397 3 is_stmt 0 view .LVU92
+ 500 0072 0122     		movs	r2, #1
+ 501 0074 4021     		movs	r1, #64
+ 502 0076 2046     		mov	r0, r4
+ 503 0078 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 504              	.LVL33:
+ 505              	.LBE57:
+ 506              	.LBE56:
+  87:Drivers/PS2Xlib/Src/PS2X_lib.c ****    delayMicroseconds(CTRL_BYTE_DELAY);
+ 507              		.loc 1 87 4 is_stmt 1 view .LVU93
+ 508              	.LBB58:
+ 509              	.LBI58:
+ 390:Drivers/PS2Xlib/Src/PS2X_lib.c ****   //digitalWrite(_clk_pin, LOW);
+ 510              		.loc 1 390 14 view .LVU94
+ 511              	.LBB59:
+ 392:Drivers/PS2Xlib/Src/PS2X_lib.c **** }
+ 512              		.loc 1 392 3 view .LVU95
+ 513 007c 0022     		movs	r2, #0
+ 514 007e 2021     		movs	r1, #32
+ 515 0080 2046     		mov	r0, r4
+ 516 0082 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 517              	.LVL34:
+ 518              	.LBE59:
+ 519              	.LBE58:
+  88:Drivers/PS2Xlib/Src/PS2X_lib.c ****    CLK_CLR();
+ 520              		.loc 1 88 4 view .LVU96
+ 521 0086 0A20     		movs	r0, #10
+ 522 0088 FFF7FEFF 		bl	delayMicroseconds
+ 523              	.LVL35:
+  89:Drivers/PS2Xlib/Src/PS2X_lib.c ****    return tmp;
+ 524              		.loc 1 89 4 view .LVU97
+ 525              	.LBB60:
+ 526              	.LBI60:
+ 390:Drivers/PS2Xlib/Src/PS2X_lib.c ****   //digitalWrite(_clk_pin, LOW);
+ARM GAS  D:\Temp\cchpYA3w.s 			page 18
+
+
+ 527              		.loc 1 390 14 view .LVU98
+ 528              	.LBB61:
+ 392:Drivers/PS2Xlib/Src/PS2X_lib.c **** }
+ 529              		.loc 1 392 3 view .LVU99
+ 530 008c 0022     		movs	r2, #0
+ 531 008e 2021     		movs	r1, #32
+ 532 0090 2046     		mov	r0, r4
+ 533 0092 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 534              	.LVL36:
+ 535              	.LBE61:
+ 536              	.LBE60:
+  90:Drivers/PS2Xlib/Src/PS2X_lib.c **** }
+ 537              		.loc 1 90 4 view .LVU100
+  91:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 538              		.loc 1 91 1 is_stmt 0 view .LVU101
+ 539 0096 3846     		mov	r0, r7
+ 540 0098 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 541              	.LVL37:
+ 542              	.L33:
+  91:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 543              		.loc 1 91 1 view .LVU102
+ 544              		.align	2
+ 545              	.L32:
+ 546 009c 00080140 		.word	1073809408
+ 547              		.cfi_endproc
+ 548              	.LFE77:
+ 550              		.section	.text.sendCommandString,"ax",%progbits
+ 551              		.align	1
+ 552              		.global	sendCommandString
+ 553              		.syntax unified
+ 554              		.thumb
+ 555              		.thumb_func
+ 556              		.fpu softvfp
+ 558              	sendCommandString:
+ 559              	.LVL38:
+ 560              	.LFB82:
+ 272:Drivers/PS2Xlib/Src/PS2X_lib.c **** #ifdef PS2X_COM_DEBUG
+ 561              		.loc 1 272 55 is_stmt 1 view -0
+ 562              		.cfi_startproc
+ 563              		@ args = 0, pretend = 0, frame = 0
+ 564              		@ frame_needed = 0, uses_anonymous_args = 0
+ 272:Drivers/PS2Xlib/Src/PS2X_lib.c **** #ifdef PS2X_COM_DEBUG
+ 565              		.loc 1 272 55 is_stmt 0 view .LVU104
+ 566 0000 70B5     		push	{r4, r5, r6, lr}
+ 567              	.LCFI4:
+ 568              		.cfi_def_cfa_offset 16
+ 569              		.cfi_offset 4, -16
+ 570              		.cfi_offset 5, -12
+ 571              		.cfi_offset 6, -8
+ 572              		.cfi_offset 14, -4
+ 573 0002 0646     		mov	r6, r0
+ 574 0004 0D46     		mov	r5, r1
+ 293:Drivers/PS2Xlib/Src/PS2X_lib.c ****   //delayMicroseconds(CTRL_BYTE_DELAY);
+ 575              		.loc 1 293 3 is_stmt 1 view .LVU105
+ 576              	.LBB67:
+ 577              	.LBI67:
+ 411:Drivers/PS2Xlib/Src/PS2X_lib.c ****   //digitalWrite(_att_pin, LOW);
+ARM GAS  D:\Temp\cchpYA3w.s 			page 19
+
+
+ 578              		.loc 1 411 13 view .LVU106
+ 579              	.LBB68:
+ 413:Drivers/PS2Xlib/Src/PS2X_lib.c **** }
+ 580              		.loc 1 413 3 view .LVU107
+ 581 0006 0022     		movs	r2, #0
+ 582 0008 0121     		movs	r1, #1
+ 583              	.LVL39:
+ 413:Drivers/PS2Xlib/Src/PS2X_lib.c **** }
+ 584              		.loc 1 413 3 is_stmt 0 view .LVU108
+ 585 000a 0E48     		ldr	r0, .L39
+ 586              	.LVL40:
+ 413:Drivers/PS2Xlib/Src/PS2X_lib.c **** }
+ 587              		.loc 1 413 3 view .LVU109
+ 588 000c FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 589              	.LVL41:
+ 590              	.LBE68:
+ 591              	.LBE67:
+ 295:Drivers/PS2Xlib/Src/PS2X_lib.c ****   for (int y=0; y < len; y++)
+ 592              		.loc 1 295 3 is_stmt 1 view .LVU110
+ 593 0010 0220     		movs	r0, #2
+ 594 0012 FFF7FEFF 		bl	delayMicroseconds
+ 595              	.LVL42:
+ 296:Drivers/PS2Xlib/Src/PS2X_lib.c ****     _gamepad_shiftinout(string[y]);
+ 596              		.loc 1 296 3 view .LVU111
+ 597              	.LBB69:
+ 296:Drivers/PS2Xlib/Src/PS2X_lib.c ****     _gamepad_shiftinout(string[y]);
+ 598              		.loc 1 296 8 view .LVU112
+ 296:Drivers/PS2Xlib/Src/PS2X_lib.c ****     _gamepad_shiftinout(string[y]);
+ 599              		.loc 1 296 12 is_stmt 0 view .LVU113
+ 600 0016 0024     		movs	r4, #0
+ 601              	.LVL43:
+ 602              	.L35:
+ 296:Drivers/PS2Xlib/Src/PS2X_lib.c ****     _gamepad_shiftinout(string[y]);
+ 603              		.loc 1 296 3 discriminator 1 view .LVU114
+ 604 0018 A542     		cmp	r5, r4
+ 605 001a 04DD     		ble	.L38
+ 297:Drivers/PS2Xlib/Src/PS2X_lib.c ****   ATT_SET(); //high disable joystick
+ 606              		.loc 1 297 5 is_stmt 1 discriminator 3 view .LVU115
+ 607 001c 305D     		ldrb	r0, [r6, r4]	@ zero_extendqisi2
+ 608 001e FFF7FEFF 		bl	_gamepad_shiftinout
+ 609              	.LVL44:
+ 296:Drivers/PS2Xlib/Src/PS2X_lib.c ****     _gamepad_shiftinout(string[y]);
+ 610              		.loc 1 296 27 is_stmt 0 discriminator 3 view .LVU116
+ 611 0022 0134     		adds	r4, r4, #1
+ 612              	.LVL45:
+ 296:Drivers/PS2Xlib/Src/PS2X_lib.c ****     _gamepad_shiftinout(string[y]);
+ 613              		.loc 1 296 27 discriminator 3 view .LVU117
+ 614 0024 F8E7     		b	.L35
+ 615              	.L38:
+ 296:Drivers/PS2Xlib/Src/PS2X_lib.c ****     _gamepad_shiftinout(string[y]);
+ 616              		.loc 1 296 27 discriminator 3 view .LVU118
+ 617              	.LBE69:
+ 298:Drivers/PS2Xlib/Src/PS2X_lib.c ****   //HAL_Delay(read_delay);                  //wait a few
+ 618              		.loc 1 298 3 is_stmt 1 view .LVU119
+ 619              	.LBB70:
+ 620              	.LBI70:
+ 405:Drivers/PS2Xlib/Src/PS2X_lib.c ****  // digitalWrite(_att_pin, HIGH);
+ARM GAS  D:\Temp\cchpYA3w.s 			page 20
+
+
+ 621              		.loc 1 405 14 view .LVU120
+ 622              	.LBB71:
+ 407:Drivers/PS2Xlib/Src/PS2X_lib.c ****   HAL_GPIO_WritePin(CLK_GPIO_Port, CLK_Pin, GPIO_PIN_RESET);
+ 623              		.loc 1 407 3 view .LVU121
+ 624 0026 0122     		movs	r2, #1
+ 625 0028 1146     		mov	r1, r2
+ 626 002a 0648     		ldr	r0, .L39
+ 627 002c FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 628              	.LVL46:
+ 408:Drivers/PS2Xlib/Src/PS2X_lib.c **** }
+ 629              		.loc 1 408 3 view .LVU122
+ 630 0030 0022     		movs	r2, #0
+ 631 0032 2021     		movs	r1, #32
+ 632 0034 0448     		ldr	r0, .L39+4
+ 633 0036 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 634              	.LVL47:
+ 635              	.LBE71:
+ 636              	.LBE70:
+ 300:Drivers/PS2Xlib/Src/PS2X_lib.c **** #endif
+ 637              		.loc 1 300 3 view .LVU123
+ 638 003a 044B     		ldr	r3, .L39+8
+ 639 003c 1878     		ldrb	r0, [r3]	@ zero_extendqisi2
+ 640 003e FFF7FEFF 		bl	osDelay
+ 641              	.LVL48:
+ 302:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 642              		.loc 1 302 1 is_stmt 0 view .LVU124
+ 643 0042 70BD     		pop	{r4, r5, r6, pc}
+ 644              	.LVL49:
+ 645              	.L40:
+ 302:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 646              		.loc 1 302 1 view .LVU125
+ 647              		.align	2
+ 648              	.L39:
+ 649 0044 000C0140 		.word	1073810432
+ 650 0048 00080140 		.word	1073809408
+ 651 004c 00000000 		.word	read_delay
+ 652              		.cfi_endproc
+ 653              	.LFE82:
+ 655              		.section	.text.readType,"ax",%progbits
+ 656              		.align	1
+ 657              		.global	readType
+ 658              		.syntax unified
+ 659              		.thumb
+ 660              		.thumb_func
+ 661              		.fpu softvfp
+ 663              	readType:
+ 664              	.LFB83:
+ 305:Drivers/PS2Xlib/Src/PS2X_lib.c **** /*
+ 665              		.loc 1 305 20 is_stmt 1 view -0
+ 666              		.cfi_startproc
+ 667              		@ args = 0, pretend = 0, frame = 0
+ 668              		@ frame_needed = 0, uses_anonymous_args = 0
+ 669              		@ link register save eliminated.
+ 334:Drivers/PS2Xlib/Src/PS2X_lib.c ****     return 1;
+ 670              		.loc 1 334 3 view .LVU127
+ 334:Drivers/PS2Xlib/Src/PS2X_lib.c ****     return 1;
+ 671              		.loc 1 334 22 is_stmt 0 view .LVU128
+ARM GAS  D:\Temp\cchpYA3w.s 			page 21
+
+
+ 672 0000 0D4B     		ldr	r3, .L51
+ 673 0002 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 334:Drivers/PS2Xlib/Src/PS2X_lib.c ****     return 1;
+ 674              		.loc 1 334 5 view .LVU129
+ 675 0004 032B     		cmp	r3, #3
+ 676 0006 13D0     		beq	.L45
+ 336:Drivers/PS2Xlib/Src/PS2X_lib.c **** 	return 4;
+ 677              		.loc 1 336 8 is_stmt 1 view .LVU130
+ 336:Drivers/PS2Xlib/Src/PS2X_lib.c **** 	return 4;
+ 678              		.loc 1 336 10 is_stmt 0 view .LVU131
+ 679 0008 012B     		cmp	r3, #1
+ 680 000a 05D0     		beq	.L49
+ 681              	.L43:
+ 338:Drivers/PS2Xlib/Src/PS2X_lib.c ****     return 2;
+ 682              		.loc 1 338 8 is_stmt 1 view .LVU132
+ 338:Drivers/PS2Xlib/Src/PS2X_lib.c ****     return 2;
+ 683              		.loc 1 338 10 is_stmt 0 view .LVU133
+ 684 000c 012B     		cmp	r3, #1
+ 685 000e 09D0     		beq	.L50
+ 686              	.L44:
+ 340:Drivers/PS2Xlib/Src/PS2X_lib.c ****     return 3;  //2.4G Wireless Dual Shock PS2 Game Controller
+ 687              		.loc 1 340 8 is_stmt 1 view .LVU134
+ 340:Drivers/PS2Xlib/Src/PS2X_lib.c ****     return 3;  //2.4G Wireless Dual Shock PS2 Game Controller
+ 688              		.loc 1 340 10 is_stmt 0 view .LVU135
+ 689 0010 0C2B     		cmp	r3, #12
+ 690 0012 0FD0     		beq	.L48
+ 343:Drivers/PS2Xlib/Src/PS2X_lib.c **** }
+ 691              		.loc 1 343 10 view .LVU136
+ 692 0014 0020     		movs	r0, #0
+ 693 0016 7047     		bx	lr
+ 694              	.L49:
+ 336:Drivers/PS2Xlib/Src/PS2X_lib.c **** 	return 4;
+ 695              		.loc 1 336 45 discriminator 1 view .LVU137
+ 696 0018 084A     		ldr	r2, .L51+4
+ 697 001a 5278     		ldrb	r2, [r2, #1]	@ zero_extendqisi2
+ 336:Drivers/PS2Xlib/Src/PS2X_lib.c **** 	return 4;
+ 698              		.loc 1 336 35 discriminator 1 view .LVU138
+ 699 001c 422A     		cmp	r2, #66
+ 700 001e F5D1     		bne	.L43
+ 337:Drivers/PS2Xlib/Src/PS2X_lib.c ****   else if(controller_type == 0x01 && PS2data[1] != 0x42)
+ 701              		.loc 1 337 9 view .LVU139
+ 702 0020 0420     		movs	r0, #4
+ 703 0022 7047     		bx	lr
+ 704              	.L50:
+ 338:Drivers/PS2Xlib/Src/PS2X_lib.c ****     return 2;
+ 705              		.loc 1 338 45 discriminator 1 view .LVU140
+ 706 0024 054A     		ldr	r2, .L51+4
+ 707 0026 5278     		ldrb	r2, [r2, #1]	@ zero_extendqisi2
+ 338:Drivers/PS2Xlib/Src/PS2X_lib.c ****     return 2;
+ 708              		.loc 1 338 35 discriminator 1 view .LVU141
+ 709 0028 422A     		cmp	r2, #66
+ 710 002a F1D0     		beq	.L44
+ 339:Drivers/PS2Xlib/Src/PS2X_lib.c ****   else if(controller_type == 0x0C)  
+ 711              		.loc 1 339 12 view .LVU142
+ 712 002c 0220     		movs	r0, #2
+ 713 002e 7047     		bx	lr
+ 714              	.L45:
+ARM GAS  D:\Temp\cchpYA3w.s 			page 22
+
+
+ 335:Drivers/PS2Xlib/Src/PS2X_lib.c ****   else if(controller_type == 0x01 && PS2data[1] == 0x42)
+ 715              		.loc 1 335 12 view .LVU143
+ 716 0030 0120     		movs	r0, #1
+ 717 0032 7047     		bx	lr
+ 718              	.L48:
+ 341:Drivers/PS2Xlib/Src/PS2X_lib.c **** 	
+ 719              		.loc 1 341 12 view .LVU144
+ 720 0034 0320     		movs	r0, #3
+ 344:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 721              		.loc 1 344 1 view .LVU145
+ 722 0036 7047     		bx	lr
+ 723              	.L52:
+ 724              		.align	2
+ 725              	.L51:
+ 726 0038 00000000 		.word	controller_type
+ 727 003c 00000000 		.word	PS2data
+ 728              		.cfi_endproc
+ 729              	.LFE83:
+ 731              		.section	.text.enableRumble,"ax",%progbits
+ 732              		.align	1
+ 733              		.global	enableRumble
+ 734              		.syntax unified
+ 735              		.thumb
+ 736              		.thumb_func
+ 737              		.fpu softvfp
+ 739              	enableRumble:
+ 740              	.LFB84:
+ 347:Drivers/PS2Xlib/Src/PS2X_lib.c ****   sendCommandString(enter_config, sizeof(enter_config));
+ 741              		.loc 1 347 21 is_stmt 1 view -0
+ 742              		.cfi_startproc
+ 743              		@ args = 0, pretend = 0, frame = 0
+ 744              		@ frame_needed = 0, uses_anonymous_args = 0
+ 745 0000 08B5     		push	{r3, lr}
+ 746              	.LCFI5:
+ 747              		.cfi_def_cfa_offset 8
+ 748              		.cfi_offset 3, -8
+ 749              		.cfi_offset 14, -4
+ 348:Drivers/PS2Xlib/Src/PS2X_lib.c ****   sendCommandString(enable_rumble, sizeof(enable_rumble));
+ 750              		.loc 1 348 3 view .LVU147
+ 751 0002 0521     		movs	r1, #5
+ 752 0004 0748     		ldr	r0, .L55
+ 753 0006 FFF7FEFF 		bl	sendCommandString
+ 754              	.LVL50:
+ 349:Drivers/PS2Xlib/Src/PS2X_lib.c ****   sendCommandString(exit_config, sizeof(exit_config));
+ 755              		.loc 1 349 3 view .LVU148
+ 756 000a 0521     		movs	r1, #5
+ 757 000c 0648     		ldr	r0, .L55+4
+ 758 000e FFF7FEFF 		bl	sendCommandString
+ 759              	.LVL51:
+ 350:Drivers/PS2Xlib/Src/PS2X_lib.c ****   en_Rumble = true;
+ 760              		.loc 1 350 3 view .LVU149
+ 761 0012 0921     		movs	r1, #9
+ 762 0014 0548     		ldr	r0, .L55+8
+ 763 0016 FFF7FEFF 		bl	sendCommandString
+ 764              	.LVL52:
+ 351:Drivers/PS2Xlib/Src/PS2X_lib.c **** }
+ 765              		.loc 1 351 3 view .LVU150
+ARM GAS  D:\Temp\cchpYA3w.s 			page 23
+
+
+ 351:Drivers/PS2Xlib/Src/PS2X_lib.c **** }
+ 766              		.loc 1 351 13 is_stmt 0 view .LVU151
+ 767 001a 054B     		ldr	r3, .L55+12
+ 768 001c 0122     		movs	r2, #1
+ 769 001e 1A70     		strb	r2, [r3]
+ 352:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 770              		.loc 1 352 1 view .LVU152
+ 771 0020 08BD     		pop	{r3, pc}
+ 772              	.L56:
+ 773 0022 00BF     		.align	2
+ 774              	.L55:
+ 775 0024 00000000 		.word	.LANCHOR0
+ 776 0028 00000000 		.word	.LANCHOR1
+ 777 002c 00000000 		.word	.LANCHOR2
+ 778 0030 00000000 		.word	en_Rumble
+ 779              		.cfi_endproc
+ 780              	.LFE84:
+ 782              		.section	.text.reconfig_gamepad,"ax",%progbits
+ 783              		.align	1
+ 784              		.global	reconfig_gamepad
+ 785              		.syntax unified
+ 786              		.thumb
+ 787              		.thumb_func
+ 788              		.fpu softvfp
+ 790              	reconfig_gamepad:
+ 791              	.LFB86:
+ 371:Drivers/PS2Xlib/Src/PS2X_lib.c ****   sendCommandString(enter_config, sizeof(enter_config));
+ 792              		.loc 1 371 24 is_stmt 1 view -0
+ 793              		.cfi_startproc
+ 794              		@ args = 0, pretend = 0, frame = 0
+ 795              		@ frame_needed = 0, uses_anonymous_args = 0
+ 796 0000 08B5     		push	{r3, lr}
+ 797              	.LCFI6:
+ 798              		.cfi_def_cfa_offset 8
+ 799              		.cfi_offset 3, -8
+ 800              		.cfi_offset 14, -4
+ 372:Drivers/PS2Xlib/Src/PS2X_lib.c ****   sendCommandString(set_mode, sizeof(set_mode));
+ 801              		.loc 1 372 3 view .LVU154
+ 802 0002 0521     		movs	r1, #5
+ 803 0004 0D48     		ldr	r0, .L63
+ 804 0006 FFF7FEFF 		bl	sendCommandString
+ 805              	.LVL53:
+ 373:Drivers/PS2Xlib/Src/PS2X_lib.c ****   if (en_Rumble)
+ 806              		.loc 1 373 3 view .LVU155
+ 807 000a 0921     		movs	r1, #9
+ 808 000c 0C48     		ldr	r0, .L63+4
+ 809 000e FFF7FEFF 		bl	sendCommandString
+ 810              	.LVL54:
+ 374:Drivers/PS2Xlib/Src/PS2X_lib.c ****     sendCommandString(enable_rumble, sizeof(enable_rumble));
+ 811              		.loc 1 374 3 view .LVU156
+ 374:Drivers/PS2Xlib/Src/PS2X_lib.c ****     sendCommandString(enable_rumble, sizeof(enable_rumble));
+ 812              		.loc 1 374 7 is_stmt 0 view .LVU157
+ 813 0012 0C4B     		ldr	r3, .L63+8
+ 814 0014 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 374:Drivers/PS2Xlib/Src/PS2X_lib.c ****     sendCommandString(enable_rumble, sizeof(enable_rumble));
+ 815              		.loc 1 374 6 view .LVU158
+ 816 0016 3BB9     		cbnz	r3, .L61
+ARM GAS  D:\Temp\cchpYA3w.s 			page 24
+
+
+ 817              	.L58:
+ 376:Drivers/PS2Xlib/Src/PS2X_lib.c ****     sendCommandString(set_bytes_large, sizeof(set_bytes_large));
+ 818              		.loc 1 376 3 is_stmt 1 view .LVU159
+ 376:Drivers/PS2Xlib/Src/PS2X_lib.c ****     sendCommandString(set_bytes_large, sizeof(set_bytes_large));
+ 819              		.loc 1 376 7 is_stmt 0 view .LVU160
+ 820 0018 0B4B     		ldr	r3, .L63+12
+ 821 001a 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 376:Drivers/PS2Xlib/Src/PS2X_lib.c ****     sendCommandString(set_bytes_large, sizeof(set_bytes_large));
+ 822              		.loc 1 376 6 view .LVU161
+ 823 001c 4BB9     		cbnz	r3, .L62
+ 824              	.L59:
+ 378:Drivers/PS2Xlib/Src/PS2X_lib.c **** }
+ 825              		.loc 1 378 3 is_stmt 1 view .LVU162
+ 826 001e 0921     		movs	r1, #9
+ 827 0020 0A48     		ldr	r0, .L63+16
+ 828 0022 FFF7FEFF 		bl	sendCommandString
+ 829              	.LVL55:
+ 379:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 830              		.loc 1 379 1 is_stmt 0 view .LVU163
+ 831 0026 08BD     		pop	{r3, pc}
+ 832              	.L61:
+ 375:Drivers/PS2Xlib/Src/PS2X_lib.c ****   if (en_Pressures)
+ 833              		.loc 1 375 5 is_stmt 1 view .LVU164
+ 834 0028 0521     		movs	r1, #5
+ 835 002a 0948     		ldr	r0, .L63+20
+ 836 002c FFF7FEFF 		bl	sendCommandString
+ 837              	.LVL56:
+ 838 0030 F2E7     		b	.L58
+ 839              	.L62:
+ 377:Drivers/PS2Xlib/Src/PS2X_lib.c ****   sendCommandString(exit_config, sizeof(exit_config));
+ 840              		.loc 1 377 5 view .LVU165
+ 841 0032 0921     		movs	r1, #9
+ 842 0034 0748     		ldr	r0, .L63+24
+ 843 0036 FFF7FEFF 		bl	sendCommandString
+ 844              	.LVL57:
+ 845 003a F0E7     		b	.L59
+ 846              	.L64:
+ 847              		.align	2
+ 848              	.L63:
+ 849 003c 00000000 		.word	.LANCHOR0
+ 850 0040 00000000 		.word	.LANCHOR3
+ 851 0044 00000000 		.word	en_Rumble
+ 852 0048 00000000 		.word	en_Pressures
+ 853 004c 00000000 		.word	.LANCHOR2
+ 854 0050 00000000 		.word	.LANCHOR1
+ 855 0054 00000000 		.word	.LANCHOR4
+ 856              		.cfi_endproc
+ 857              	.LFE86:
+ 859              		.global	__aeabi_ui2d
+ 860              		.global	__aeabi_i2d
+ 861              		.global	__aeabi_dcmpgt
+ 862              		.global	__aeabi_dsub
+ 863              		.global	__aeabi_d2uiz
+ 864              		.global	__aeabi_ui2f
+ 865              		.global	__aeabi_f2uiz
+ 866              		.section	.text.read_gamepad,"ax",%progbits
+ 867              		.align	1
+ARM GAS  D:\Temp\cchpYA3w.s 			page 25
+
+
+ 868              		.global	read_gamepad
+ 869              		.syntax unified
+ 870              		.thumb
+ 871              		.thumb_func
+ 872              		.fpu softvfp
+ 874              	read_gamepad:
+ 875              	.LVL58:
+ 876              	.LFB79:
+  99:Drivers/PS2Xlib/Src/PS2X_lib.c ****    double temp = HAL_GetTick() - last_read;
+ 877              		.loc 1 99 48 view -0
+ 878              		.cfi_startproc
+ 879              		@ args = 0, pretend = 0, frame = 16
+ 880              		@ frame_needed = 0, uses_anonymous_args = 0
+  99:Drivers/PS2Xlib/Src/PS2X_lib.c ****    double temp = HAL_GetTick() - last_read;
+ 881              		.loc 1 99 48 is_stmt 0 view .LVU167
+ 882 0000 2DE9F043 		push	{r4, r5, r6, r7, r8, r9, lr}
+ 883              	.LCFI7:
+ 884              		.cfi_def_cfa_offset 28
+ 885              		.cfi_offset 4, -28
+ 886              		.cfi_offset 5, -24
+ 887              		.cfi_offset 6, -20
+ 888              		.cfi_offset 7, -16
+ 889              		.cfi_offset 8, -12
+ 890              		.cfi_offset 9, -8
+ 891              		.cfi_offset 14, -4
+ 892 0004 87B0     		sub	sp, sp, #28
+ 893              	.LCFI8:
+ 894              		.cfi_def_cfa_offset 56
+ 895 0006 0746     		mov	r7, r0
+ 896 0008 0E46     		mov	r6, r1
+ 100:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 897              		.loc 1 100 4 is_stmt 1 view .LVU168
+ 100:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 898              		.loc 1 100 18 is_stmt 0 view .LVU169
+ 899 000a FFF7FEFF 		bl	HAL_GetTick
+ 900              	.LVL59:
+ 100:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 901              		.loc 1 100 32 view .LVU170
+ 902 000e 5D4B     		ldr	r3, .L87
+ 903 0010 1C68     		ldr	r4, [r3]
+ 904 0012 041B     		subs	r4, r0, r4
+ 100:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 905              		.loc 1 100 11 view .LVU171
+ 906 0014 2046     		mov	r0, r4
+ 907 0016 FFF7FEFF 		bl	__aeabi_ui2d
+ 908              	.LVL60:
+ 909 001a 8046     		mov	r8, r0
+ 910 001c 8946     		mov	r9, r1
+ 911              	.LVL61:
+ 102:Drivers/PS2Xlib/Src/PS2X_lib.c ****       reconfig_gamepad();
+ 912              		.loc 1 102 4 is_stmt 1 view .LVU172
+ 102:Drivers/PS2Xlib/Src/PS2X_lib.c ****       reconfig_gamepad();
+ 913              		.loc 1 102 7 is_stmt 0 view .LVU173
+ 914 001e 40F2DC53 		movw	r3, #1500
+ 915 0022 9C42     		cmp	r4, r3
+ 916 0024 2FD8     		bhi	.L83
+ 917              	.L66:
+ARM GAS  D:\Temp\cchpYA3w.s 			page 26
+
+
+ 105:Drivers/PS2Xlib/Src/PS2X_lib.c ****       //HAL_Delay(read_delay - temp);
+ 918              		.loc 1 105 4 is_stmt 1 view .LVU174
+ 105:Drivers/PS2Xlib/Src/PS2X_lib.c ****       //HAL_Delay(read_delay - temp);
+ 919              		.loc 1 105 12 is_stmt 0 view .LVU175
+ 920 0026 584B     		ldr	r3, .L87+4
+ 921 0028 1878     		ldrb	r0, [r3]	@ zero_extendqisi2
+ 922 002a FFF7FEFF 		bl	__aeabi_i2d
+ 923              	.LVL62:
+ 924 002e 0446     		mov	r4, r0
+ 925 0030 0D46     		mov	r5, r1
+ 105:Drivers/PS2Xlib/Src/PS2X_lib.c ****       //HAL_Delay(read_delay - temp);
+ 926              		.loc 1 105 6 view .LVU176
+ 927 0032 4246     		mov	r2, r8
+ 928 0034 4B46     		mov	r3, r9
+ 929 0036 FFF7FEFF 		bl	__aeabi_dcmpgt
+ 930              	.LVL63:
+ 931 003a 38BB     		cbnz	r0, .L84
+ 932              	.L67:
+ 111:Drivers/PS2Xlib/Src/PS2X_lib.c ****       motor2 = map(motor2,0,255,0x40,0xFF); //noting below 40 will make it spin
+ 933              		.loc 1 111 4 is_stmt 1 view .LVU177
+ 111:Drivers/PS2Xlib/Src/PS2X_lib.c ****       motor2 = map(motor2,0,255,0x40,0xFF); //noting below 40 will make it spin
+ 934              		.loc 1 111 6 is_stmt 0 view .LVU178
+ 935 003c 6EB1     		cbz	r6, .L69
+ 112:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 936              		.loc 1 112 7 is_stmt 1 view .LVU179
+ 112:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 937              		.loc 1 112 16 is_stmt 0 view .LVU180
+ 938 003e 534C     		ldr	r4, .L87+8
+ 939 0040 3046     		mov	r0, r6
+ 940 0042 FFF7FEFF 		bl	__aeabi_ui2f
+ 941              	.LVL64:
+ 942 0046 0094     		str	r4, [sp]	@ float
+ 943 0048 4FF08543 		mov	r3, #1115684864
+ 944 004c 2246     		mov	r2, r4
+ 945 004e 0021     		movs	r1, #0
+ 946 0050 FFF7FEFF 		bl	map
+ 947              	.LVL65:
+ 112:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 948              		.loc 1 112 14 view .LVU181
+ 949 0054 FFF7FEFF 		bl	__aeabi_f2uiz
+ 950              	.LVL66:
+ 951 0058 C6B2     		uxtb	r6, r0
+ 952              	.LVL67:
+ 953              	.L69:
+ 116:Drivers/PS2Xlib/Src/PS2X_lib.c ****    uint8_t dword2[12] = {0,0,0,0,0,0,0,0,0,0,0,0};
+ 954              		.loc 1 116 4 is_stmt 1 view .LVU182
+ 116:Drivers/PS2Xlib/Src/PS2X_lib.c ****    uint8_t dword2[12] = {0,0,0,0,0,0,0,0,0,0,0,0};
+ 955              		.loc 1 116 12 is_stmt 0 view .LVU183
+ 956 005a 0123     		movs	r3, #1
+ 957 005c 8DF80C30 		strb	r3, [sp, #12]
+ 958 0060 4223     		movs	r3, #66
+ 959 0062 8DF80D30 		strb	r3, [sp, #13]
+ 960 0066 0025     		movs	r5, #0
+ 961 0068 8DF80E50 		strb	r5, [sp, #14]
+ 962 006c 8DF80F70 		strb	r7, [sp, #15]
+ 963 0070 8DF81060 		strb	r6, [sp, #16]
+ 964 0074 8DF81150 		strb	r5, [sp, #17]
+ARM GAS  D:\Temp\cchpYA3w.s 			page 27
+
+
+ 965 0078 8DF81250 		strb	r5, [sp, #18]
+ 966 007c 8DF81350 		strb	r5, [sp, #19]
+ 967 0080 8DF81450 		strb	r5, [sp, #20]
+ 117:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 968              		.loc 1 117 4 is_stmt 1 view .LVU184
+ 120:Drivers/PS2Xlib/Src/PS2X_lib.c ****       CMD_SET();
+ 969              		.loc 1 120 4 view .LVU185
+ 970              	.LBB83:
+ 120:Drivers/PS2Xlib/Src/PS2X_lib.c ****       CMD_SET();
+ 971              		.loc 1 120 9 view .LVU186
+ 972              	.LVL68:
+ 120:Drivers/PS2Xlib/Src/PS2X_lib.c ****       CMD_SET();
+ 973              		.loc 1 120 4 is_stmt 0 view .LVU187
+ 974 0084 34E0     		b	.L70
+ 975              	.LVL69:
+ 976              	.L83:
+ 120:Drivers/PS2Xlib/Src/PS2X_lib.c ****       CMD_SET();
+ 977              		.loc 1 120 4 view .LVU188
+ 978              	.LBE83:
+ 103:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 979              		.loc 1 103 7 is_stmt 1 view .LVU189
+ 980 0086 FFF7FEFF 		bl	reconfig_gamepad
+ 981              	.LVL70:
+ 982 008a CCE7     		b	.L66
+ 983              	.L84:
+ 107:Drivers/PS2Xlib/Src/PS2X_lib.c ****       
+ 984              		.loc 1 107 7 view .LVU190
+ 107:Drivers/PS2Xlib/Src/PS2X_lib.c ****       
+ 985              		.loc 1 107 26 is_stmt 0 view .LVU191
+ 986 008c 4246     		mov	r2, r8
+ 987 008e 4B46     		mov	r3, r9
+ 988 0090 2046     		mov	r0, r4
+ 989 0092 2946     		mov	r1, r5
+ 990 0094 FFF7FEFF 		bl	__aeabi_dsub
+ 991              	.LVL71:
+ 107:Drivers/PS2Xlib/Src/PS2X_lib.c ****       
+ 992              		.loc 1 107 7 view .LVU192
+ 993 0098 FFF7FEFF 		bl	__aeabi_d2uiz
+ 994              	.LVL72:
+ 995 009c FFF7FEFF 		bl	osDelay
+ 996              	.LVL73:
+ 997 00a0 CCE7     		b	.L67
+ 998              	.LVL74:
+ 999              	.L72:
+ 1000              	.LBB95:
+ 1001              	.LBB84:
+ 129:Drivers/PS2Xlib/Src/PS2X_lib.c ****       }
+ 1002              		.loc 1 129 10 is_stmt 1 discriminator 3 view .LVU193
+ 129:Drivers/PS2Xlib/Src/PS2X_lib.c ****       }
+ 1003              		.loc 1 129 48 is_stmt 0 discriminator 3 view .LVU194
+ 1004 00a2 06AB     		add	r3, sp, #24
+ 1005 00a4 2344     		add	r3, r3, r4
+ 129:Drivers/PS2Xlib/Src/PS2X_lib.c ****       }
+ 1006              		.loc 1 129 23 discriminator 3 view .LVU195
+ 1007 00a6 13F80C0C 		ldrb	r0, [r3, #-12]	@ zero_extendqisi2
+ 1008 00aa FFF7FEFF 		bl	_gamepad_shiftinout
+ 1009              	.LVL75:
+ARM GAS  D:\Temp\cchpYA3w.s 			page 28
+
+
+ 129:Drivers/PS2Xlib/Src/PS2X_lib.c ****       }
+ 1010              		.loc 1 129 21 discriminator 3 view .LVU196
+ 1011 00ae 384B     		ldr	r3, .L87+12
+ 1012 00b0 1855     		strb	r0, [r3, r4]
+ 128:Drivers/PS2Xlib/Src/PS2X_lib.c ****          PS2data[i] = _gamepad_shiftinout(dword[i]);
+ 1013              		.loc 1 128 29 discriminator 3 view .LVU197
+ 1014 00b2 0134     		adds	r4, r4, #1
+ 1015              	.LVL76:
+ 1016              	.L71:
+ 128:Drivers/PS2Xlib/Src/PS2X_lib.c ****          PS2data[i] = _gamepad_shiftinout(dword[i]);
+ 1017              		.loc 1 128 7 discriminator 1 view .LVU198
+ 1018 00b4 082C     		cmp	r4, #8
+ 1019 00b6 F4DD     		ble	.L72
+ 1020              	.LBE84:
+ 132:Drivers/PS2Xlib/Src/PS2X_lib.c ****       
+ 1021              		.loc 1 132 7 is_stmt 1 view .LVU199
+ 132:Drivers/PS2Xlib/Src/PS2X_lib.c ****       
+ 1022              		.loc 1 132 17 is_stmt 0 view .LVU200
+ 1023 00b8 354B     		ldr	r3, .L87+12
+ 1024 00ba 5B78     		ldrb	r3, [r3, #1]	@ zero_extendqisi2
+ 132:Drivers/PS2Xlib/Src/PS2X_lib.c ****       
+ 1025              		.loc 1 132 9 view .LVU201
+ 1026 00bc 792B     		cmp	r3, #121
+ 1027 00be 2ED0     		beq	.L85
+ 1028              	.LVL77:
+ 1029              	.L74:
+ 139:Drivers/PS2Xlib/Src/PS2X_lib.c ****       // Check to see if we received valid data or not.  
+ 1030              		.loc 1 139 7 is_stmt 1 view .LVU202
+ 1031              	.LBB85:
+ 1032              	.LBI85:
+ 405:Drivers/PS2Xlib/Src/PS2X_lib.c ****  // digitalWrite(_att_pin, HIGH);
+ 1033              		.loc 1 405 14 view .LVU203
+ 1034              	.LBB86:
+ 407:Drivers/PS2Xlib/Src/PS2X_lib.c ****   HAL_GPIO_WritePin(CLK_GPIO_Port, CLK_Pin, GPIO_PIN_RESET);
+ 1035              		.loc 1 407 3 view .LVU204
+ 1036 00c0 0122     		movs	r2, #1
+ 1037 00c2 1146     		mov	r1, r2
+ 1038 00c4 3348     		ldr	r0, .L87+16
+ 1039 00c6 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 1040              	.LVL78:
+ 408:Drivers/PS2Xlib/Src/PS2X_lib.c **** }
+ 1041              		.loc 1 408 3 view .LVU205
+ 1042 00ca 0022     		movs	r2, #0
+ 1043 00cc 2021     		movs	r1, #32
+ 1044 00ce 3248     		ldr	r0, .L87+20
+ 1045 00d0 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 1046              	.LVL79:
+ 1047              	.LBE86:
+ 1048              	.LBE85:
+ 144:Drivers/PS2Xlib/Src/PS2X_lib.c ****         return true;
+ 1049              		.loc 1 144 7 view .LVU206
+ 144:Drivers/PS2Xlib/Src/PS2X_lib.c ****         return true;
+ 1050              		.loc 1 144 19 is_stmt 0 view .LVU207
+ 1051 00d4 2E4B     		ldr	r3, .L87+12
+ 1052 00d6 5B78     		ldrb	r3, [r3, #1]	@ zero_extendqisi2
+ 144:Drivers/PS2Xlib/Src/PS2X_lib.c ****         return true;
+ 1053              		.loc 1 144 10 view .LVU208
+ARM GAS  D:\Temp\cchpYA3w.s 			page 29
+
+
+ 1054 00d8 03F0F003 		and	r3, r3, #240
+ 1055 00dc 702B     		cmp	r3, #112
+ 1056 00de 4FD0     		beq	.L80
+ 149:Drivers/PS2Xlib/Src/PS2X_lib.c ****       //HAL_Delay(read_delay);
+ 1057              		.loc 1 149 7 is_stmt 1 discriminator 2 view .LVU209
+ 1058 00e0 FFF7FEFF 		bl	reconfig_gamepad
+ 1059              	.LVL80:
+ 151:Drivers/PS2Xlib/Src/PS2X_lib.c ****    }
+ 1060              		.loc 1 151 7 discriminator 2 view .LVU210
+ 1061 00e4 284B     		ldr	r3, .L87+4
+ 1062 00e6 1878     		ldrb	r0, [r3]	@ zero_extendqisi2
+ 1063 00e8 FFF7FEFF 		bl	osDelay
+ 1064              	.LVL81:
+ 120:Drivers/PS2Xlib/Src/PS2X_lib.c ****       CMD_SET();
+ 1065              		.loc 1 120 53 is_stmt 0 discriminator 2 view .LVU211
+ 1066 00ec 0135     		adds	r5, r5, #1
+ 1067              	.LVL82:
+ 120:Drivers/PS2Xlib/Src/PS2X_lib.c ****       CMD_SET();
+ 1068              		.loc 1 120 53 discriminator 2 view .LVU212
+ 1069 00ee EDB2     		uxtb	r5, r5
+ 1070              	.LVL83:
+ 1071              	.L70:
+ 120:Drivers/PS2Xlib/Src/PS2X_lib.c ****       CMD_SET();
+ 1072              		.loc 1 120 4 discriminator 1 view .LVU213
+ 1073 00f0 042D     		cmp	r5, #4
+ 1074 00f2 20D8     		bhi	.L86
+ 121:Drivers/PS2Xlib/Src/PS2X_lib.c ****       
+ 1075              		.loc 1 121 7 is_stmt 1 view .LVU214
+ 1076              	.LBB87:
+ 1077              	.LBI87:
+ 395:Drivers/PS2Xlib/Src/PS2X_lib.c **** //  digitalWrite(_cmd_pin, HIGH);
+ 1078              		.loc 1 395 14 view .LVU215
+ 1079              	.LBB88:
+ 397:Drivers/PS2Xlib/Src/PS2X_lib.c **** }
+ 1080              		.loc 1 397 3 view .LVU216
+ 1081 00f4 284C     		ldr	r4, .L87+20
+ 1082 00f6 0122     		movs	r2, #1
+ 1083 00f8 4021     		movs	r1, #64
+ 1084 00fa 2046     		mov	r0, r4
+ 1085 00fc FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 1086              	.LVL84:
+ 1087              	.LBE88:
+ 1088              	.LBE87:
+ 123:Drivers/PS2Xlib/Src/PS2X_lib.c ****       CLK_SET();
+ 1089              		.loc 1 123 7 view .LVU217
+ 1090              	.LBB89:
+ 1091              	.LBI89:
+ 411:Drivers/PS2Xlib/Src/PS2X_lib.c ****   //digitalWrite(_att_pin, LOW);
+ 1092              		.loc 1 411 13 view .LVU218
+ 1093              	.LBB90:
+ 413:Drivers/PS2Xlib/Src/PS2X_lib.c **** }
+ 1094              		.loc 1 413 3 view .LVU219
+ 1095 0100 0022     		movs	r2, #0
+ 1096 0102 0121     		movs	r1, #1
+ 1097 0104 2348     		ldr	r0, .L87+16
+ 1098 0106 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 1099              	.LVL85:
+ARM GAS  D:\Temp\cchpYA3w.s 			page 30
+
+
+ 1100              	.LBE90:
+ 1101              	.LBE89:
+ 124:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 1102              		.loc 1 124 7 view .LVU220
+ 1103              	.LBB91:
+ 1104              	.LBI91:
+ 385:Drivers/PS2Xlib/Src/PS2X_lib.c ****   //digitalWrite(_clk_pin, HIGH);
+ 1105              		.loc 1 385 14 view .LVU221
+ 1106              	.LBB92:
+ 387:Drivers/PS2Xlib/Src/PS2X_lib.c **** }
+ 1107              		.loc 1 387 3 view .LVU222
+ 1108 010a 0122     		movs	r2, #1
+ 1109 010c 2021     		movs	r1, #32
+ 1110 010e 2046     		mov	r0, r4
+ 1111 0110 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 1112              	.LVL86:
+ 1113              	.LBE92:
+ 1114              	.LBE91:
+ 126:Drivers/PS2Xlib/Src/PS2X_lib.c ****       //Send the command to send button and joystick data;
+ 1115              		.loc 1 126 7 view .LVU223
+ 1116 0114 0A20     		movs	r0, #10
+ 1117 0116 FFF7FEFF 		bl	delayMicroseconds
+ 1118              	.LVL87:
+ 128:Drivers/PS2Xlib/Src/PS2X_lib.c ****          PS2data[i] = _gamepad_shiftinout(dword[i]);
+ 1119              		.loc 1 128 7 view .LVU224
+ 1120              	.LBB93:
+ 128:Drivers/PS2Xlib/Src/PS2X_lib.c ****          PS2data[i] = _gamepad_shiftinout(dword[i]);
+ 1121              		.loc 1 128 12 view .LVU225
+ 128:Drivers/PS2Xlib/Src/PS2X_lib.c ****          PS2data[i] = _gamepad_shiftinout(dword[i]);
+ 1122              		.loc 1 128 16 is_stmt 0 view .LVU226
+ 1123 011a 0024     		movs	r4, #0
+ 128:Drivers/PS2Xlib/Src/PS2X_lib.c ****          PS2data[i] = _gamepad_shiftinout(dword[i]);
+ 1124              		.loc 1 128 7 view .LVU227
+ 1125 011c CAE7     		b	.L71
+ 1126              	.LVL88:
+ 1127              	.L85:
+ 128:Drivers/PS2Xlib/Src/PS2X_lib.c ****          PS2data[i] = _gamepad_shiftinout(dword[i]);
+ 1128              		.loc 1 128 7 view .LVU228
+ 1129              	.LBE93:
+ 1130              	.LBB94:
+ 134:Drivers/PS2Xlib/Src/PS2X_lib.c ****             PS2data[i+9] = _gamepad_shiftinout(dword2[i]);
+ 1131              		.loc 1 134 19 view .LVU229
+ 1132 011e 0024     		movs	r4, #0
+ 1133              	.LVL89:
+ 1134              	.L73:
+ 134:Drivers/PS2Xlib/Src/PS2X_lib.c ****             PS2data[i+9] = _gamepad_shiftinout(dword2[i]);
+ 1135              		.loc 1 134 10 discriminator 1 view .LVU230
+ 1136 0120 0B2C     		cmp	r4, #11
+ 1137 0122 CDDC     		bgt	.L74
+ 135:Drivers/PS2Xlib/Src/PS2X_lib.c ****          }
+ 1138              		.loc 1 135 13 is_stmt 1 discriminator 3 view .LVU231
+ 135:Drivers/PS2Xlib/Src/PS2X_lib.c ****          }
+ 1139              		.loc 1 135 22 is_stmt 0 discriminator 3 view .LVU232
+ 1140 0124 04F10906 		add	r6, r4, #9
+ 135:Drivers/PS2Xlib/Src/PS2X_lib.c ****          }
+ 1141              		.loc 1 135 28 discriminator 3 view .LVU233
+ 1142 0128 0020     		movs	r0, #0
+ARM GAS  D:\Temp\cchpYA3w.s 			page 31
+
+
+ 1143 012a FFF7FEFF 		bl	_gamepad_shiftinout
+ 1144              	.LVL90:
+ 135:Drivers/PS2Xlib/Src/PS2X_lib.c ****          }
+ 1145              		.loc 1 135 26 discriminator 3 view .LVU234
+ 1146 012e 184B     		ldr	r3, .L87+12
+ 1147 0130 9855     		strb	r0, [r3, r6]
+ 134:Drivers/PS2Xlib/Src/PS2X_lib.c ****             PS2data[i+9] = _gamepad_shiftinout(dword2[i]);
+ 1148              		.loc 1 134 33 discriminator 3 view .LVU235
+ 1149 0132 0134     		adds	r4, r4, #1
+ 1150              	.LVL91:
+ 134:Drivers/PS2Xlib/Src/PS2X_lib.c ****             PS2data[i+9] = _gamepad_shiftinout(dword2[i]);
+ 1151              		.loc 1 134 33 discriminator 3 view .LVU236
+ 1152 0134 F4E7     		b	.L73
+ 1153              	.LVL92:
+ 1154              	.L86:
+ 134:Drivers/PS2Xlib/Src/PS2X_lib.c ****             PS2data[i+9] = _gamepad_shiftinout(dword2[i]);
+ 1155              		.loc 1 134 33 discriminator 3 view .LVU237
+ 1156              	.LBE94:
+ 1157              	.LBE95:
+ 155:Drivers/PS2Xlib/Src/PS2X_lib.c ****       if (read_delay < 10)
+ 1158              		.loc 1 155 4 is_stmt 1 view .LVU238
+ 155:Drivers/PS2Xlib/Src/PS2X_lib.c ****       if (read_delay < 10)
+ 1159              		.loc 1 155 16 is_stmt 0 view .LVU239
+ 1160 0136 164B     		ldr	r3, .L87+12
+ 1161 0138 5B78     		ldrb	r3, [r3, #1]	@ zero_extendqisi2
+ 155:Drivers/PS2Xlib/Src/PS2X_lib.c ****       if (read_delay < 10)
+ 1162              		.loc 1 155 7 view .LVU240
+ 1163 013a 03F0F003 		and	r3, r3, #240
+ 1164 013e 702B     		cmp	r3, #112
+ 1165 0140 06D0     		beq	.L78
+ 156:Drivers/PS2Xlib/Src/PS2X_lib.c ****          read_delay++;   // see if this helps out...
+ 1166              		.loc 1 156 7 is_stmt 1 view .LVU241
+ 156:Drivers/PS2Xlib/Src/PS2X_lib.c ****          read_delay++;   // see if this helps out...
+ 1167              		.loc 1 156 22 is_stmt 0 view .LVU242
+ 1168 0142 114B     		ldr	r3, .L87+4
+ 1169 0144 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 156:Drivers/PS2Xlib/Src/PS2X_lib.c ****          read_delay++;   // see if this helps out...
+ 1170              		.loc 1 156 10 view .LVU243
+ 1171 0146 092B     		cmp	r3, #9
+ 1172 0148 02D8     		bhi	.L78
+ 157:Drivers/PS2Xlib/Src/PS2X_lib.c ****    }
+ 1173              		.loc 1 157 10 is_stmt 1 view .LVU244
+ 157:Drivers/PS2Xlib/Src/PS2X_lib.c ****    }
+ 1174              		.loc 1 157 20 is_stmt 0 view .LVU245
+ 1175 014a 0133     		adds	r3, r3, #1
+ 1176 014c 0E4A     		ldr	r2, .L87+4
+ 1177 014e 1370     		strb	r3, [r2]
+ 1178              	.L78:
+ 177:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 1179              		.loc 1 177 4 is_stmt 1 view .LVU246
+ 177:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 1180              		.loc 1 177 17 is_stmt 0 view .LVU247
+ 1181 0150 124A     		ldr	r2, .L87+24
+ 1182 0152 1188     		ldrh	r1, [r2]
+ 1183 0154 124B     		ldr	r3, .L87+28
+ 1184 0156 1980     		strh	r1, [r3]	@ movhi
+ 180:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ARM GAS  D:\Temp\cchpYA3w.s 			page 32
+
+
+ 1185              		.loc 1 180 4 is_stmt 1 view .LVU248
+ 180:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 1186              		.loc 1 180 33 is_stmt 0 view .LVU249
+ 1187 0158 0D4C     		ldr	r4, .L87+12
+ 1188 015a 2179     		ldrb	r1, [r4, #4]	@ zero_extendqisi2
+ 180:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 1189              		.loc 1 180 52 view .LVU250
+ 1190 015c E378     		ldrb	r3, [r4, #3]	@ zero_extendqisi2
+ 180:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 1191              		.loc 1 180 43 view .LVU251
+ 1192 015e 03EB0123 		add	r3, r3, r1, lsl #8
+ 180:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 1193              		.loc 1 180 12 view .LVU252
+ 1194 0162 1380     		strh	r3, [r2]	@ movhi
+ 182:Drivers/PS2Xlib/Src/PS2X_lib.c ****    return ((PS2data[1] & 0xf0) == 0x70);  // 1 = OK = analog mode - 0 = NOK
+ 1195              		.loc 1 182 4 is_stmt 1 view .LVU253
+ 182:Drivers/PS2Xlib/Src/PS2X_lib.c ****    return ((PS2data[1] & 0xf0) == 0x70);  // 1 = OK = analog mode - 0 = NOK
+ 1196              		.loc 1 182 16 is_stmt 0 view .LVU254
+ 1197 0164 FFF7FEFF 		bl	HAL_GetTick
+ 1198              	.LVL93:
+ 182:Drivers/PS2Xlib/Src/PS2X_lib.c ****    return ((PS2data[1] & 0xf0) == 0x70);  // 1 = OK = analog mode - 0 = NOK
+ 1199              		.loc 1 182 14 view .LVU255
+ 1200 0168 064B     		ldr	r3, .L87
+ 1201 016a 1860     		str	r0, [r3]
+ 183:Drivers/PS2Xlib/Src/PS2X_lib.c **** }
+ 1202              		.loc 1 183 4 is_stmt 1 view .LVU256
+ 183:Drivers/PS2Xlib/Src/PS2X_lib.c **** }
+ 1203              		.loc 1 183 20 is_stmt 0 view .LVU257
+ 1204 016c 6078     		ldrb	r0, [r4, #1]	@ zero_extendqisi2
+ 183:Drivers/PS2Xlib/Src/PS2X_lib.c **** }
+ 1205              		.loc 1 183 32 view .LVU258
+ 1206 016e 00F0F000 		and	r0, r0, #240
+ 1207 0172 7028     		cmp	r0, #112
+ 1208 0174 14BF     		ite	ne
+ 1209 0176 0020     		movne	r0, #0
+ 1210 0178 0120     		moveq	r0, #1
+ 1211              	.L76:
+ 184:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 1212              		.loc 1 184 1 view .LVU259
+ 1213 017a 07B0     		add	sp, sp, #28
+ 1214              	.LCFI9:
+ 1215              		.cfi_remember_state
+ 1216              		.cfi_def_cfa_offset 28
+ 1217              		@ sp needed
+ 1218 017c BDE8F083 		pop	{r4, r5, r6, r7, r8, r9, pc}
+ 1219              	.LVL94:
+ 1220              	.L80:
+ 1221              	.LCFI10:
+ 1222              		.cfi_restore_state
+ 1223              	.LBB96:
+ 145:Drivers/PS2Xlib/Src/PS2X_lib.c ****          //break;
+ 1224              		.loc 1 145 16 view .LVU260
+ 1225 0180 0120     		movs	r0, #1
+ 1226 0182 FAE7     		b	.L76
+ 1227              	.L88:
+ 1228              		.align	2
+ 1229              	.L87:
+ARM GAS  D:\Temp\cchpYA3w.s 			page 33
+
+
+ 1230 0184 00000000 		.word	last_read
+ 1231 0188 00000000 		.word	read_delay
+ 1232 018c 00007F43 		.word	1132396544
+ 1233 0190 00000000 		.word	PS2data
+ 1234 0194 000C0140 		.word	1073810432
+ 1235 0198 00080140 		.word	1073809408
+ 1236 019c 00000000 		.word	buttons
+ 1237 01a0 00000000 		.word	last_buttons
+ 1238              	.LBE96:
+ 1239              		.cfi_endproc
+ 1240              	.LFE79:
+ 1242              		.section	.text._read_gamepad,"ax",%progbits
+ 1243              		.align	1
+ 1244              		.global	_read_gamepad
+ 1245              		.syntax unified
+ 1246              		.thumb
+ 1247              		.thumb_func
+ 1248              		.fpu softvfp
+ 1250              	_read_gamepad:
+ 1251              	.LFB78:
+  94:Drivers/PS2Xlib/Src/PS2X_lib.c ****    read_gamepad(false, 0x00);
+ 1252              		.loc 1 94 26 is_stmt 1 view -0
+ 1253              		.cfi_startproc
+ 1254              		@ args = 0, pretend = 0, frame = 0
+ 1255              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1256 0000 08B5     		push	{r3, lr}
+ 1257              	.LCFI11:
+ 1258              		.cfi_def_cfa_offset 8
+ 1259              		.cfi_offset 3, -8
+ 1260              		.cfi_offset 14, -4
+  95:Drivers/PS2Xlib/Src/PS2X_lib.c **** }
+ 1261              		.loc 1 95 4 view .LVU262
+ 1262 0002 0021     		movs	r1, #0
+ 1263 0004 0846     		mov	r0, r1
+ 1264 0006 FFF7FEFF 		bl	read_gamepad
+ 1265              	.LVL95:
+  96:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 1266              		.loc 1 96 1 is_stmt 0 view .LVU263
+ 1267 000a 08BD     		pop	{r3, pc}
+ 1268              		.cfi_endproc
+ 1269              	.LFE78:
+ 1271              		.section	.text.config_gamepad,"ax",%progbits
+ 1272              		.align	1
+ 1273              		.global	config_gamepad
+ 1274              		.syntax unified
+ 1275              		.thumb
+ 1276              		.thumb_func
+ 1277              		.fpu softvfp
+ 1279              	config_gamepad:
+ 1280              	.LVL96:
+ 1281              	.LFB81:
+ 191:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 1282              		.loc 1 191 105 is_stmt 1 view -0
+ 1283              		.cfi_startproc
+ 1284              		@ args = 8, pretend = 0, frame = 16
+ 1285              		@ frame_needed = 0, uses_anonymous_args = 0
+ 191:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ARM GAS  D:\Temp\cchpYA3w.s 			page 34
+
+
+ 1286              		.loc 1 191 105 is_stmt 0 view .LVU265
+ 1287 0000 F0B5     		push	{r4, r5, r6, r7, lr}
+ 1288              	.LCFI12:
+ 1289              		.cfi_def_cfa_offset 20
+ 1290              		.cfi_offset 4, -20
+ 1291              		.cfi_offset 5, -16
+ 1292              		.cfi_offset 6, -12
+ 1293              		.cfi_offset 7, -8
+ 1294              		.cfi_offset 14, -4
+ 1295 0002 85B0     		sub	sp, sp, #20
+ 1296              	.LCFI13:
+ 1297              		.cfi_def_cfa_offset 40
+ 1298 0004 9DF82860 		ldrb	r6, [sp, #40]	@ zero_extendqisi2
+ 1299 0008 9DF82C70 		ldrb	r7, [sp, #44]	@ zero_extendqisi2
+ 193:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 1300              		.loc 1 193 3 is_stmt 1 view .LVU266
+ 195:Drivers/PS2Xlib/Src/PS2X_lib.c ****   CLK_SET();
+ 1301              		.loc 1 195 3 view .LVU267
+ 1302              	.LBB112:
+ 1303              	.LBI112:
+ 395:Drivers/PS2Xlib/Src/PS2X_lib.c **** //  digitalWrite(_cmd_pin, HIGH);
+ 1304              		.loc 1 395 14 view .LVU268
+ 1305              	.LBB113:
+ 397:Drivers/PS2Xlib/Src/PS2X_lib.c **** }
+ 1306              		.loc 1 397 3 view .LVU269
+ 1307 000c 494C     		ldr	r4, .L113
+ 1308 000e 0122     		movs	r2, #1
+ 1309              	.LVL97:
+ 397:Drivers/PS2Xlib/Src/PS2X_lib.c **** }
+ 1310              		.loc 1 397 3 is_stmt 0 view .LVU270
+ 1311 0010 4021     		movs	r1, #64
+ 1312              	.LVL98:
+ 397:Drivers/PS2Xlib/Src/PS2X_lib.c **** }
+ 1313              		.loc 1 397 3 view .LVU271
+ 1314 0012 2046     		mov	r0, r4
+ 1315              	.LVL99:
+ 397:Drivers/PS2Xlib/Src/PS2X_lib.c **** }
+ 1316              		.loc 1 397 3 view .LVU272
+ 1317 0014 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 1318              	.LVL100:
+ 397:Drivers/PS2Xlib/Src/PS2X_lib.c **** }
+ 1319              		.loc 1 397 3 view .LVU273
+ 1320              	.LBE113:
+ 1321              	.LBE112:
+ 196:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 1322              		.loc 1 196 3 is_stmt 1 view .LVU274
+ 1323              	.LBB114:
+ 1324              	.LBI114:
+ 385:Drivers/PS2Xlib/Src/PS2X_lib.c ****   //digitalWrite(_clk_pin, HIGH);
+ 1325              		.loc 1 385 14 view .LVU275
+ 1326              	.LBB115:
+ 387:Drivers/PS2Xlib/Src/PS2X_lib.c **** }
+ 1327              		.loc 1 387 3 view .LVU276
+ 1328 0018 0122     		movs	r2, #1
+ 1329 001a 2021     		movs	r1, #32
+ 1330 001c 2046     		mov	r0, r4
+ 1331 001e FFF7FEFF 		bl	HAL_GPIO_WritePin
+ARM GAS  D:\Temp\cchpYA3w.s 			page 35
+
+
+ 1332              	.LVL101:
+ 1333              	.LBE115:
+ 1334              	.LBE114:
+ 199:Drivers/PS2Xlib/Src/PS2X_lib.c ****     _read_gamepad();
+ 1335              		.loc 1 199 3 view .LVU277
+ 1336              	.LBB116:
+ 199:Drivers/PS2Xlib/Src/PS2X_lib.c ****     _read_gamepad();
+ 1337              		.loc 1 199 7 view .LVU278
+ 199:Drivers/PS2Xlib/Src/PS2X_lib.c ****     _read_gamepad();
+ 1338              		.loc 1 199 11 is_stmt 0 view .LVU279
+ 1339 0022 0024     		movs	r4, #0
+ 1340              	.LVL102:
+ 1341              	.L92:
+ 199:Drivers/PS2Xlib/Src/PS2X_lib.c ****     _read_gamepad();
+ 1342              		.loc 1 199 3 discriminator 1 view .LVU280
+ 1343 0024 092C     		cmp	r4, #9
+ 1344 0026 03DC     		bgt	.L109
+ 200:Drivers/PS2Xlib/Src/PS2X_lib.c ****   
+ 1345              		.loc 1 200 5 is_stmt 1 discriminator 3 view .LVU281
+ 1346 0028 FFF7FEFF 		bl	_read_gamepad
+ 1347              	.LVL103:
+ 199:Drivers/PS2Xlib/Src/PS2X_lib.c ****     _read_gamepad();
+ 1348              		.loc 1 199 27 is_stmt 0 discriminator 3 view .LVU282
+ 1349 002c 0134     		adds	r4, r4, #1
+ 1350              	.LVL104:
+ 199:Drivers/PS2Xlib/Src/PS2X_lib.c ****     _read_gamepad();
+ 1351              		.loc 1 199 27 discriminator 3 view .LVU283
+ 1352 002e F9E7     		b	.L92
+ 1353              	.L109:
+ 199:Drivers/PS2Xlib/Src/PS2X_lib.c ****     _read_gamepad();
+ 1354              		.loc 1 199 27 discriminator 3 view .LVU284
+ 1355              	.LBE116:
+ 205:Drivers/PS2Xlib/Src/PS2X_lib.c **** #ifdef PS2X_DEBUG
+ 1356              		.loc 1 205 3 is_stmt 1 view .LVU285
+ 205:Drivers/PS2Xlib/Src/PS2X_lib.c **** #ifdef PS2X_DEBUG
+ 1357              		.loc 1 205 13 is_stmt 0 view .LVU286
+ 1358 0030 414B     		ldr	r3, .L113+4
+ 1359 0032 5A78     		ldrb	r2, [r3, #1]	@ zero_extendqisi2
+ 205:Drivers/PS2Xlib/Src/PS2X_lib.c **** #ifdef PS2X_DEBUG
+ 1360              		.loc 1 205 25 view .LVU287
+ 1361 0034 A2F14103 		sub	r3, r2, #65
+ 1362 0038 DBB2     		uxtb	r3, r3
+ 205:Drivers/PS2Xlib/Src/PS2X_lib.c **** #ifdef PS2X_DEBUG
+ 1363              		.loc 1 205 5 view .LVU288
+ 1364 003a 012B     		cmp	r3, #1
+ 1365 003c 03D9     		bls	.L94
+ 205:Drivers/PS2Xlib/Src/PS2X_lib.c **** #ifdef PS2X_DEBUG
+ 1366              		.loc 1 205 47 discriminator 1 view .LVU289
+ 1367 003e 732A     		cmp	r2, #115
+ 1368 0040 01D0     		beq	.L94
+ 205:Drivers/PS2Xlib/Src/PS2X_lib.c **** #ifdef PS2X_DEBUG
+ 1369              		.loc 1 205 69 discriminator 2 view .LVU290
+ 1370 0042 792A     		cmp	r2, #121
+ 1371 0044 6BD1     		bne	.L103
+ 1372              	.L94:
+ 218:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 1373              		.loc 1 218 3 is_stmt 1 view .LVU291
+ARM GAS  D:\Temp\cchpYA3w.s 			page 36
+
+
+ 218:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 1374              		.loc 1 218 14 is_stmt 0 view .LVU292
+ 1375 0046 3D4B     		ldr	r3, .L113+8
+ 1376 0048 0122     		movs	r2, #1
+ 1377 004a 1A70     		strb	r2, [r3]
+ 220:Drivers/PS2Xlib/Src/PS2X_lib.c ****     sendCommandString(enter_config, sizeof(enter_config)); //start config run
+ 1378              		.loc 1 220 3 is_stmt 1 view .LVU293
+ 1379              	.LBB117:
+ 220:Drivers/PS2Xlib/Src/PS2X_lib.c ****     sendCommandString(enter_config, sizeof(enter_config)); //start config run
+ 1380              		.loc 1 220 7 view .LVU294
+ 1381              	.LVL105:
+ 220:Drivers/PS2Xlib/Src/PS2X_lib.c ****     sendCommandString(enter_config, sizeof(enter_config)); //start config run
+ 1382              		.loc 1 220 11 is_stmt 0 view .LVU295
+ 1383 004c 0025     		movs	r5, #0
+ 220:Drivers/PS2Xlib/Src/PS2X_lib.c ****     sendCommandString(enter_config, sizeof(enter_config)); //start config run
+ 1384              		.loc 1 220 3 view .LVU296
+ 1385 004e 38E0     		b	.L96
+ 1386              	.LVL106:
+ 1387              	.L98:
+ 1388              	.LBB118:
+ 234:Drivers/PS2Xlib/Src/PS2X_lib.c ****     }
+ 1389              		.loc 1 234 7 is_stmt 1 discriminator 3 view .LVU297
+ 234:Drivers/PS2Xlib/Src/PS2X_lib.c ****     }
+ 1390              		.loc 1 234 17 is_stmt 0 discriminator 3 view .LVU298
+ 1391 0050 3B4B     		ldr	r3, .L113+12
+ 1392 0052 185D     		ldrb	r0, [r3, r4]	@ zero_extendqisi2
+ 1393 0054 FFF7FEFF 		bl	_gamepad_shiftinout
+ 1394              	.LVL107:
+ 234:Drivers/PS2Xlib/Src/PS2X_lib.c ****     }
+ 1395              		.loc 1 234 15 discriminator 3 view .LVU299
+ 1396 0058 04AB     		add	r3, sp, #16
+ 1397 005a 2344     		add	r3, r3, r4
+ 1398 005c 03F80C0C 		strb	r0, [r3, #-12]
+ 233:Drivers/PS2Xlib/Src/PS2X_lib.c ****       temp[i] = _gamepad_shiftinout(type_read[i]);
+ 1399              		.loc 1 233 27 discriminator 3 view .LVU300
+ 1400 0060 0134     		adds	r4, r4, #1
+ 1401              	.LVL108:
+ 1402              	.L97:
+ 233:Drivers/PS2Xlib/Src/PS2X_lib.c ****       temp[i] = _gamepad_shiftinout(type_read[i]);
+ 1403              		.loc 1 233 5 discriminator 1 view .LVU301
+ 1404 0062 082C     		cmp	r4, #8
+ 1405 0064 F4DD     		ble	.L98
+ 1406              	.LBE118:
+ 237:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 1407              		.loc 1 237 5 is_stmt 1 view .LVU302
+ 1408              	.LBB119:
+ 1409              	.LBI119:
+ 405:Drivers/PS2Xlib/Src/PS2X_lib.c ****  // digitalWrite(_att_pin, HIGH);
+ 1410              		.loc 1 405 14 view .LVU303
+ 1411              	.LBB120:
+ 407:Drivers/PS2Xlib/Src/PS2X_lib.c ****   HAL_GPIO_WritePin(CLK_GPIO_Port, CLK_Pin, GPIO_PIN_RESET);
+ 1412              		.loc 1 407 3 view .LVU304
+ 1413 0066 0122     		movs	r2, #1
+ 1414 0068 1146     		mov	r1, r2
+ 1415 006a 3648     		ldr	r0, .L113+16
+ 1416 006c FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 1417              	.LVL109:
+ARM GAS  D:\Temp\cchpYA3w.s 			page 37
+
+
+ 408:Drivers/PS2Xlib/Src/PS2X_lib.c **** }
+ 1418              		.loc 1 408 3 view .LVU305
+ 1419 0070 0022     		movs	r2, #0
+ 1420 0072 2021     		movs	r1, #32
+ 1421 0074 2F48     		ldr	r0, .L113
+ 1422 0076 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 1423              	.LVL110:
+ 1424              	.LBE120:
+ 1425              	.LBE119:
+ 239:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 1426              		.loc 1 239 5 view .LVU306
+ 239:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 1427              		.loc 1 239 27 is_stmt 0 view .LVU307
+ 1428 007a 9DF80720 		ldrb	r2, [sp, #7]	@ zero_extendqisi2
+ 239:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 1429              		.loc 1 239 21 view .LVU308
+ 1430 007e 324B     		ldr	r3, .L113+20
+ 1431 0080 1A70     		strb	r2, [r3]
+ 241:Drivers/PS2Xlib/Src/PS2X_lib.c ****     if(rumble){ sendCommandString(enable_rumble, sizeof(enable_rumble)); en_Rumble = true; }
+ 1432              		.loc 1 241 5 is_stmt 1 view .LVU309
+ 1433 0082 0921     		movs	r1, #9
+ 1434 0084 3148     		ldr	r0, .L113+24
+ 1435 0086 FFF7FEFF 		bl	sendCommandString
+ 1436              	.LVL111:
+ 242:Drivers/PS2Xlib/Src/PS2X_lib.c ****     if(pressures){ sendCommandString(set_bytes_large, sizeof(set_bytes_large)); en_Pressures = true
+ 1437              		.loc 1 242 5 view .LVU310
+ 242:Drivers/PS2Xlib/Src/PS2X_lib.c ****     if(pressures){ sendCommandString(set_bytes_large, sizeof(set_bytes_large)); en_Pressures = true
+ 1438              		.loc 1 242 7 is_stmt 0 view .LVU311
+ 1439 008a 002F     		cmp	r7, #0
+ 1440 008c 34D1     		bne	.L110
+ 1441              	.L99:
+ 243:Drivers/PS2Xlib/Src/PS2X_lib.c ****     sendCommandString(exit_config, sizeof(exit_config));
+ 1442              		.loc 1 243 5 is_stmt 1 view .LVU312
+ 243:Drivers/PS2Xlib/Src/PS2X_lib.c ****     sendCommandString(exit_config, sizeof(exit_config));
+ 1443              		.loc 1 243 7 is_stmt 0 view .LVU313
+ 1444 008e 002E     		cmp	r6, #0
+ 1445 0090 3AD1     		bne	.L111
+ 1446              	.L100:
+ 244:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 1447              		.loc 1 244 5 is_stmt 1 view .LVU314
+ 1448 0092 0921     		movs	r1, #9
+ 1449 0094 2E48     		ldr	r0, .L113+28
+ 1450 0096 FFF7FEFF 		bl	sendCommandString
+ 1451              	.LVL112:
+ 246:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 1452              		.loc 1 246 5 view .LVU315
+ 1453 009a FFF7FEFF 		bl	_read_gamepad
+ 1454              	.LVL113:
+ 248:Drivers/PS2Xlib/Src/PS2X_lib.c ****       if(PS2data[1] == 0x79)
+ 1455              		.loc 1 248 5 view .LVU316
+ 248:Drivers/PS2Xlib/Src/PS2X_lib.c ****       if(PS2data[1] == 0x79)
+ 1456              		.loc 1 248 7 is_stmt 0 view .LVU317
+ 1457 009e 2EB1     		cbz	r6, .L101
+ 249:Drivers/PS2Xlib/Src/PS2X_lib.c ****         break;
+ 1458              		.loc 1 249 7 is_stmt 1 view .LVU318
+ 249:Drivers/PS2Xlib/Src/PS2X_lib.c ****         break;
+ 1459              		.loc 1 249 17 is_stmt 0 view .LVU319
+ARM GAS  D:\Temp\cchpYA3w.s 			page 38
+
+
+ 1460 00a0 254B     		ldr	r3, .L113+4
+ 1461 00a2 5B78     		ldrb	r3, [r3, #1]	@ zero_extendqisi2
+ 249:Drivers/PS2Xlib/Src/PS2X_lib.c ****         break;
+ 1462              		.loc 1 249 9 view .LVU320
+ 1463 00a4 792B     		cmp	r3, #121
+ 1464 00a6 3CD0     		beq	.L104
+ 251:Drivers/PS2Xlib/Src/PS2X_lib.c ****         return 3;
+ 1465              		.loc 1 251 7 is_stmt 1 view .LVU321
+ 251:Drivers/PS2Xlib/Src/PS2X_lib.c ****         return 3;
+ 1466              		.loc 1 251 9 is_stmt 0 view .LVU322
+ 1467 00a8 732B     		cmp	r3, #115
+ 1468 00aa 3CD0     		beq	.L105
+ 1469              	.L101:
+ 255:Drivers/PS2Xlib/Src/PS2X_lib.c ****       break;
+ 1470              		.loc 1 255 5 is_stmt 1 view .LVU323
+ 255:Drivers/PS2Xlib/Src/PS2X_lib.c ****       break;
+ 1471              		.loc 1 255 15 is_stmt 0 view .LVU324
+ 1472 00ac 224B     		ldr	r3, .L113+4
+ 1473 00ae 5B78     		ldrb	r3, [r3, #1]	@ zero_extendqisi2
+ 255:Drivers/PS2Xlib/Src/PS2X_lib.c ****       break;
+ 1474              		.loc 1 255 7 view .LVU325
+ 1475 00b0 732B     		cmp	r3, #115
+ 1476 00b2 3AD0     		beq	.L106
+ 258:Drivers/PS2Xlib/Src/PS2X_lib.c **** #ifdef PS2X_DEBUG
+ 1477              		.loc 1 258 5 is_stmt 1 view .LVU326
+ 258:Drivers/PS2Xlib/Src/PS2X_lib.c **** #ifdef PS2X_DEBUG
+ 1478              		.loc 1 258 7 is_stmt 0 view .LVU327
+ 1479 00b4 0A2D     		cmp	r5, #10
+ 1480 00b6 3AD0     		beq	.L107
+ 266:Drivers/PS2Xlib/Src/PS2X_lib.c ****   }
+ 1481              		.loc 1 266 5 is_stmt 1 discriminator 2 view .LVU328
+ 266:Drivers/PS2Xlib/Src/PS2X_lib.c ****   }
+ 1482              		.loc 1 266 16 is_stmt 0 discriminator 2 view .LVU329
+ 1483 00b8 204A     		ldr	r2, .L113+8
+ 1484 00ba 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+ 1485 00bc 0133     		adds	r3, r3, #1
+ 1486 00be 1370     		strb	r3, [r2]
+ 220:Drivers/PS2Xlib/Src/PS2X_lib.c ****     sendCommandString(enter_config, sizeof(enter_config)); //start config run
+ 1487              		.loc 1 220 28 discriminator 2 view .LVU330
+ 1488 00c0 0135     		adds	r5, r5, #1
+ 1489              	.LVL114:
+ 1490              	.L96:
+ 220:Drivers/PS2Xlib/Src/PS2X_lib.c ****     sendCommandString(enter_config, sizeof(enter_config)); //start config run
+ 1491              		.loc 1 220 3 discriminator 1 view .LVU331
+ 1492 00c2 0A2D     		cmp	r5, #10
+ 1493 00c4 28DC     		bgt	.L112
+ 221:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 1494              		.loc 1 221 5 is_stmt 1 view .LVU332
+ 1495 00c6 0521     		movs	r1, #5
+ 1496 00c8 2248     		ldr	r0, .L113+32
+ 1497 00ca FFF7FEFF 		bl	sendCommandString
+ 1498              	.LVL115:
+ 226:Drivers/PS2Xlib/Src/PS2X_lib.c ****     
+ 1499              		.loc 1 226 5 view .LVU333
+ 1500              	.LBB121:
+ 1501              	.LBI121:
+ 395:Drivers/PS2Xlib/Src/PS2X_lib.c **** //  digitalWrite(_cmd_pin, HIGH);
+ARM GAS  D:\Temp\cchpYA3w.s 			page 39
+
+
+ 1502              		.loc 1 395 14 view .LVU334
+ 1503              	.LBB122:
+ 397:Drivers/PS2Xlib/Src/PS2X_lib.c **** }
+ 1504              		.loc 1 397 3 view .LVU335
+ 1505 00ce 194C     		ldr	r4, .L113
+ 1506 00d0 0122     		movs	r2, #1
+ 1507 00d2 4021     		movs	r1, #64
+ 1508 00d4 2046     		mov	r0, r4
+ 1509 00d6 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 1510              	.LVL116:
+ 1511              	.LBE122:
+ 1512              	.LBE121:
+ 228:Drivers/PS2Xlib/Src/PS2X_lib.c ****     CLK_SET();
+ 1513              		.loc 1 228 5 view .LVU336
+ 1514              	.LBB123:
+ 1515              	.LBI123:
+ 411:Drivers/PS2Xlib/Src/PS2X_lib.c ****   //digitalWrite(_att_pin, LOW);
+ 1516              		.loc 1 411 13 view .LVU337
+ 1517              	.LBB124:
+ 413:Drivers/PS2Xlib/Src/PS2X_lib.c **** }
+ 1518              		.loc 1 413 3 view .LVU338
+ 1519 00da 0022     		movs	r2, #0
+ 1520 00dc 0121     		movs	r1, #1
+ 1521 00de 1948     		ldr	r0, .L113+16
+ 1522 00e0 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 1523              	.LVL117:
+ 1524              	.LBE124:
+ 1525              	.LBE123:
+ 229:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 1526              		.loc 1 229 5 view .LVU339
+ 1527              	.LBB125:
+ 1528              	.LBI125:
+ 385:Drivers/PS2Xlib/Src/PS2X_lib.c ****   //digitalWrite(_clk_pin, HIGH);
+ 1529              		.loc 1 385 14 view .LVU340
+ 1530              	.LBB126:
+ 387:Drivers/PS2Xlib/Src/PS2X_lib.c **** }
+ 1531              		.loc 1 387 3 view .LVU341
+ 1532 00e4 0122     		movs	r2, #1
+ 1533 00e6 2021     		movs	r1, #32
+ 1534 00e8 2046     		mov	r0, r4
+ 1535 00ea FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 1536              	.LVL118:
+ 1537              	.LBE126:
+ 1538              	.LBE125:
+ 231:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 1539              		.loc 1 231 5 view .LVU342
+ 1540 00ee 0A20     		movs	r0, #10
+ 1541 00f0 FFF7FEFF 		bl	delayMicroseconds
+ 1542              	.LVL119:
+ 233:Drivers/PS2Xlib/Src/PS2X_lib.c ****       temp[i] = _gamepad_shiftinout(type_read[i]);
+ 1543              		.loc 1 233 5 view .LVU343
+ 1544              	.LBB127:
+ 233:Drivers/PS2Xlib/Src/PS2X_lib.c ****       temp[i] = _gamepad_shiftinout(type_read[i]);
+ 1545              		.loc 1 233 10 view .LVU344
+ 233:Drivers/PS2Xlib/Src/PS2X_lib.c ****       temp[i] = _gamepad_shiftinout(type_read[i]);
+ 1546              		.loc 1 233 14 is_stmt 0 view .LVU345
+ 1547 00f4 0024     		movs	r4, #0
+ARM GAS  D:\Temp\cchpYA3w.s 			page 40
+
+
+ 233:Drivers/PS2Xlib/Src/PS2X_lib.c ****       temp[i] = _gamepad_shiftinout(type_read[i]);
+ 1548              		.loc 1 233 5 view .LVU346
+ 1549 00f6 B4E7     		b	.L97
+ 1550              	.LVL120:
+ 1551              	.L110:
+ 233:Drivers/PS2Xlib/Src/PS2X_lib.c ****       temp[i] = _gamepad_shiftinout(type_read[i]);
+ 1552              		.loc 1 233 5 view .LVU347
+ 1553              	.LBE127:
+ 242:Drivers/PS2Xlib/Src/PS2X_lib.c ****     if(pressures){ sendCommandString(set_bytes_large, sizeof(set_bytes_large)); en_Pressures = true
+ 1554              		.loc 1 242 17 is_stmt 1 discriminator 1 view .LVU348
+ 1555 00f8 0521     		movs	r1, #5
+ 1556 00fa 1748     		ldr	r0, .L113+36
+ 1557 00fc FFF7FEFF 		bl	sendCommandString
+ 1558              	.LVL121:
+ 242:Drivers/PS2Xlib/Src/PS2X_lib.c ****     if(pressures){ sendCommandString(set_bytes_large, sizeof(set_bytes_large)); en_Pressures = true
+ 1559              		.loc 1 242 74 discriminator 1 view .LVU349
+ 242:Drivers/PS2Xlib/Src/PS2X_lib.c ****     if(pressures){ sendCommandString(set_bytes_large, sizeof(set_bytes_large)); en_Pressures = true
+ 1560              		.loc 1 242 84 is_stmt 0 discriminator 1 view .LVU350
+ 1561 0100 164B     		ldr	r3, .L113+40
+ 1562 0102 0122     		movs	r2, #1
+ 1563 0104 1A70     		strb	r2, [r3]
+ 1564 0106 C2E7     		b	.L99
+ 1565              	.L111:
+ 243:Drivers/PS2Xlib/Src/PS2X_lib.c ****     sendCommandString(exit_config, sizeof(exit_config));
+ 1566              		.loc 1 243 20 is_stmt 1 discriminator 1 view .LVU351
+ 1567 0108 0921     		movs	r1, #9
+ 1568 010a 1548     		ldr	r0, .L113+44
+ 1569 010c FFF7FEFF 		bl	sendCommandString
+ 1570              	.LVL122:
+ 243:Drivers/PS2Xlib/Src/PS2X_lib.c ****     sendCommandString(exit_config, sizeof(exit_config));
+ 1571              		.loc 1 243 81 discriminator 1 view .LVU352
+ 243:Drivers/PS2Xlib/Src/PS2X_lib.c ****     sendCommandString(exit_config, sizeof(exit_config));
+ 1572              		.loc 1 243 94 is_stmt 0 discriminator 1 view .LVU353
+ 1573 0110 144B     		ldr	r3, .L113+48
+ 1574 0112 0122     		movs	r2, #1
+ 1575 0114 1A70     		strb	r2, [r3]
+ 1576 0116 BCE7     		b	.L100
+ 1577              	.LVL123:
+ 1578              	.L112:
+ 243:Drivers/PS2Xlib/Src/PS2X_lib.c ****     sendCommandString(exit_config, sizeof(exit_config));
+ 1579              		.loc 1 243 94 discriminator 1 view .LVU354
+ 1580              	.LBE117:
+ 268:Drivers/PS2Xlib/Src/PS2X_lib.c **** }
+ 1581              		.loc 1 268 10 view .LVU355
+ 1582 0118 0020     		movs	r0, #0
+ 1583              	.LVL124:
+ 1584              	.L95:
+ 269:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 1585              		.loc 1 269 1 view .LVU356
+ 1586 011a 05B0     		add	sp, sp, #20
+ 1587              	.LCFI14:
+ 1588              		.cfi_remember_state
+ 1589              		.cfi_def_cfa_offset 20
+ 1590              		@ sp needed
+ 1591 011c F0BD     		pop	{r4, r5, r6, r7, pc}
+ 1592              	.LVL125:
+ 1593              	.L103:
+ARM GAS  D:\Temp\cchpYA3w.s 			page 41
+
+
+ 1594              	.LCFI15:
+ 1595              		.cfi_restore_state
+ 212:Drivers/PS2Xlib/Src/PS2X_lib.c ****   }
+ 1596              		.loc 1 212 12 view .LVU357
+ 1597 011e 0120     		movs	r0, #1
+ 1598 0120 FBE7     		b	.L95
+ 1599              	.LVL126:
+ 1600              	.L104:
+ 268:Drivers/PS2Xlib/Src/PS2X_lib.c **** }
+ 1601              		.loc 1 268 10 view .LVU358
+ 1602 0122 0020     		movs	r0, #0
+ 1603 0124 F9E7     		b	.L95
+ 1604              	.L105:
+ 1605              	.LBB128:
+ 252:Drivers/PS2Xlib/Src/PS2X_lib.c ****     }
+ 1606              		.loc 1 252 16 view .LVU359
+ 1607 0126 0320     		movs	r0, #3
+ 1608 0128 F7E7     		b	.L95
+ 1609              	.L106:
+ 1610              	.LBE128:
+ 268:Drivers/PS2Xlib/Src/PS2X_lib.c **** }
+ 1611              		.loc 1 268 10 view .LVU360
+ 1612 012a 0020     		movs	r0, #0
+ 1613 012c F5E7     		b	.L95
+ 1614              	.L107:
+ 1615              	.LBB129:
+ 264:Drivers/PS2Xlib/Src/PS2X_lib.c ****     }
+ 1616              		.loc 1 264 14 view .LVU361
+ 1617 012e 0220     		movs	r0, #2
+ 1618 0130 F3E7     		b	.L95
+ 1619              	.L114:
+ 1620 0132 00BF     		.align	2
+ 1621              	.L113:
+ 1622 0134 00080140 		.word	1073809408
+ 1623 0138 00000000 		.word	PS2data
+ 1624 013c 00000000 		.word	read_delay
+ 1625 0140 00000000 		.word	.LANCHOR5
+ 1626 0144 000C0140 		.word	1073810432
+ 1627 0148 00000000 		.word	controller_type
+ 1628 014c 00000000 		.word	.LANCHOR3
+ 1629 0150 00000000 		.word	.LANCHOR2
+ 1630 0154 00000000 		.word	.LANCHOR0
+ 1631 0158 00000000 		.word	.LANCHOR1
+ 1632 015c 00000000 		.word	en_Rumble
+ 1633 0160 00000000 		.word	.LANCHOR4
+ 1634 0164 00000000 		.word	en_Pressures
+ 1635              	.LBE129:
+ 1636              		.cfi_endproc
+ 1637              	.LFE81:
+ 1639              		.section	.text._config_gamepad,"ax",%progbits
+ 1640              		.align	1
+ 1641              		.global	_config_gamepad
+ 1642              		.syntax unified
+ 1643              		.thumb
+ 1644              		.thumb_func
+ 1645              		.fpu softvfp
+ 1647              	_config_gamepad:
+ARM GAS  D:\Temp\cchpYA3w.s 			page 42
+
+
+ 1648              	.LVL127:
+ 1649              	.LFB80:
+ 187:Drivers/PS2Xlib/Src/PS2X_lib.c ****    return config_gamepad(clk, cmd, att, dat, false, false);
+ 1650              		.loc 1 187 77 is_stmt 1 view -0
+ 1651              		.cfi_startproc
+ 1652              		@ args = 0, pretend = 0, frame = 0
+ 1653              		@ frame_needed = 0, uses_anonymous_args = 0
+ 187:Drivers/PS2Xlib/Src/PS2X_lib.c ****    return config_gamepad(clk, cmd, att, dat, false, false);
+ 1654              		.loc 1 187 77 is_stmt 0 view .LVU363
+ 1655 0000 10B5     		push	{r4, lr}
+ 1656              	.LCFI16:
+ 1657              		.cfi_def_cfa_offset 8
+ 1658              		.cfi_offset 4, -8
+ 1659              		.cfi_offset 14, -4
+ 1660 0002 82B0     		sub	sp, sp, #8
+ 1661              	.LCFI17:
+ 1662              		.cfi_def_cfa_offset 16
+ 188:Drivers/PS2Xlib/Src/PS2X_lib.c **** }
+ 1663              		.loc 1 188 4 is_stmt 1 view .LVU364
+ 188:Drivers/PS2Xlib/Src/PS2X_lib.c **** }
+ 1664              		.loc 1 188 11 is_stmt 0 view .LVU365
+ 1665 0004 0024     		movs	r4, #0
+ 1666 0006 0194     		str	r4, [sp, #4]
+ 1667 0008 0094     		str	r4, [sp]
+ 1668 000a FFF7FEFF 		bl	config_gamepad
+ 1669              	.LVL128:
+ 189:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 1670              		.loc 1 189 1 view .LVU366
+ 1671 000e 02B0     		add	sp, sp, #8
+ 1672              	.LCFI18:
+ 1673              		.cfi_def_cfa_offset 8
+ 1674              		@ sp needed
+ 1675 0010 10BD     		pop	{r4, pc}
+ 1676              		.cfi_endproc
+ 1677              	.LFE80:
+ 1679              		.section	.text.enablePressures,"ax",%progbits
+ 1680              		.align	1
+ 1681              		.global	enablePressures
+ 1682              		.syntax unified
+ 1683              		.thumb
+ 1684              		.thumb_func
+ 1685              		.fpu softvfp
+ 1687              	enablePressures:
+ 1688              	.LFB85:
+ 355:Drivers/PS2Xlib/Src/PS2X_lib.c ****   sendCommandString(enter_config, sizeof(enter_config));
+ 1689              		.loc 1 355 24 is_stmt 1 view -0
+ 1690              		.cfi_startproc
+ 1691              		@ args = 0, pretend = 0, frame = 0
+ 1692              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1693 0000 08B5     		push	{r3, lr}
+ 1694              	.LCFI19:
+ 1695              		.cfi_def_cfa_offset 8
+ 1696              		.cfi_offset 3, -8
+ 1697              		.cfi_offset 14, -4
+ 356:Drivers/PS2Xlib/Src/PS2X_lib.c ****   sendCommandString(set_bytes_large, sizeof(set_bytes_large));
+ 1698              		.loc 1 356 3 view .LVU368
+ 1699 0002 0521     		movs	r1, #5
+ARM GAS  D:\Temp\cchpYA3w.s 			page 43
+
+
+ 1700 0004 0C48     		ldr	r0, .L121
+ 1701 0006 FFF7FEFF 		bl	sendCommandString
+ 1702              	.LVL129:
+ 357:Drivers/PS2Xlib/Src/PS2X_lib.c ****   sendCommandString(exit_config, sizeof(exit_config));
+ 1703              		.loc 1 357 3 view .LVU369
+ 1704 000a 0921     		movs	r1, #9
+ 1705 000c 0B48     		ldr	r0, .L121+4
+ 1706 000e FFF7FEFF 		bl	sendCommandString
+ 1707              	.LVL130:
+ 358:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 1708              		.loc 1 358 3 view .LVU370
+ 1709 0012 0921     		movs	r1, #9
+ 1710 0014 0A48     		ldr	r0, .L121+8
+ 1711 0016 FFF7FEFF 		bl	sendCommandString
+ 1712              	.LVL131:
+ 360:Drivers/PS2Xlib/Src/PS2X_lib.c ****   _read_gamepad();
+ 1713              		.loc 1 360 3 view .LVU371
+ 1714 001a FFF7FEFF 		bl	_read_gamepad
+ 1715              	.LVL132:
+ 361:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 1716              		.loc 1 361 3 view .LVU372
+ 1717 001e FFF7FEFF 		bl	_read_gamepad
+ 1718              	.LVL133:
+ 363:Drivers/PS2Xlib/Src/PS2X_lib.c ****     return false;
+ 1719              		.loc 1 363 3 view .LVU373
+ 363:Drivers/PS2Xlib/Src/PS2X_lib.c ****     return false;
+ 1720              		.loc 1 363 13 is_stmt 0 view .LVU374
+ 1721 0022 084B     		ldr	r3, .L121+12
+ 1722 0024 5B78     		ldrb	r3, [r3, #1]	@ zero_extendqisi2
+ 363:Drivers/PS2Xlib/Src/PS2X_lib.c ****     return false;
+ 1723              		.loc 1 363 5 view .LVU375
+ 1724 0026 792B     		cmp	r3, #121
+ 1725 0028 03D1     		bne	.L119
+ 366:Drivers/PS2Xlib/Src/PS2X_lib.c ****     return true;
+ 1726              		.loc 1 366 3 is_stmt 1 view .LVU376
+ 366:Drivers/PS2Xlib/Src/PS2X_lib.c ****     return true;
+ 1727              		.loc 1 366 16 is_stmt 0 view .LVU377
+ 1728 002a 0120     		movs	r0, #1
+ 1729 002c 064B     		ldr	r3, .L121+16
+ 1730 002e 1870     		strb	r0, [r3]
+ 367:Drivers/PS2Xlib/Src/PS2X_lib.c **** }
+ 1731              		.loc 1 367 5 is_stmt 1 view .LVU378
+ 367:Drivers/PS2Xlib/Src/PS2X_lib.c **** }
+ 1732              		.loc 1 367 12 is_stmt 0 view .LVU379
+ 1733 0030 00E0     		b	.L118
+ 1734              	.L119:
+ 364:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 1735              		.loc 1 364 12 view .LVU380
+ 1736 0032 0020     		movs	r0, #0
+ 1737              	.L118:
+ 368:Drivers/PS2Xlib/Src/PS2X_lib.c **** 
+ 1738              		.loc 1 368 1 view .LVU381
+ 1739 0034 08BD     		pop	{r3, pc}
+ 1740              	.L122:
+ 1741 0036 00BF     		.align	2
+ 1742              	.L121:
+ 1743 0038 00000000 		.word	.LANCHOR0
+ARM GAS  D:\Temp\cchpYA3w.s 			page 44
+
+
+ 1744 003c 00000000 		.word	.LANCHOR4
+ 1745 0040 00000000 		.word	.LANCHOR2
+ 1746 0044 00000000 		.word	PS2data
+ 1747 0048 00000000 		.word	en_Pressures
+ 1748              		.cfi_endproc
+ 1749              	.LFE85:
+ 1751              		.comm	en_Pressures,1,1
+ 1752              		.comm	en_Rumble,1,1
+ 1753              		.comm	controller_type,1,1
+ 1754              		.comm	read_delay,1,1
+ 1755              		.comm	last_read,4,4
+ 1756              		.comm	_dat_lport,4,4
+ 1757              		.comm	_dat_mask,2,2
+ 1758              		.comm	_att_lport_clr,4,4
+ 1759              		.comm	_att_lport_set,4,4
+ 1760              		.comm	_att_mask,2,2
+ 1761              		.comm	_cmd_lport_clr,4,4
+ 1762              		.comm	_cmd_lport_set,4,4
+ 1763              		.comm	_cmd_mask,2,2
+ 1764              		.comm	_clk_lport_clr,4,4
+ 1765              		.comm	_clk_lport_set,4,4
+ 1766              		.comm	_clk_mask,2,2
+ 1767              		.comm	buttons,2,2
+ 1768              		.comm	last_buttons,2,2
+ 1769              		.comm	i,1,1
+ 1770              		.comm	PS2data,21,4
+ 1771              		.section	.data.enable_rumble,"aw"
+ 1772              		.align	2
+ 1773              		.set	.LANCHOR1,. + 0
+ 1776              	enable_rumble:
+ 1777 0000 01       		.byte	1
+ 1778 0001 4D       		.byte	77
+ 1779 0002 00       		.byte	0
+ 1780 0003 00       		.byte	0
+ 1781 0004 01       		.byte	1
+ 1782              		.section	.data.enter_config,"aw"
+ 1783              		.align	2
+ 1784              		.set	.LANCHOR0,. + 0
+ 1787              	enter_config:
+ 1788 0000 01       		.byte	1
+ 1789 0001 43       		.byte	67
+ 1790 0002 00       		.byte	0
+ 1791 0003 01       		.byte	1
+ 1792 0004 00       		.byte	0
+ 1793              		.section	.data.exit_config,"aw"
+ 1794              		.align	2
+ 1795              		.set	.LANCHOR2,. + 0
+ 1798              	exit_config:
+ 1799 0000 01       		.byte	1
+ 1800 0001 43       		.byte	67
+ 1801 0002 00       		.byte	0
+ 1802 0003 00       		.byte	0
+ 1803 0004 5A       		.byte	90
+ 1804 0005 5A       		.byte	90
+ 1805 0006 5A       		.byte	90
+ 1806 0007 5A       		.byte	90
+ 1807 0008 5A       		.byte	90
+ARM GAS  D:\Temp\cchpYA3w.s 			page 45
+
+
+ 1808              		.section	.data.set_bytes_large,"aw"
+ 1809              		.align	2
+ 1810              		.set	.LANCHOR4,. + 0
+ 1813              	set_bytes_large:
+ 1814 0000 01       		.byte	1
+ 1815 0001 4F       		.byte	79
+ 1816 0002 00       		.byte	0
+ 1817 0003 FF       		.byte	-1
+ 1818 0004 FF       		.byte	-1
+ 1819 0005 03       		.byte	3
+ 1820 0006 00       		.byte	0
+ 1821 0007 00       		.byte	0
+ 1822 0008 00       		.byte	0
+ 1823              		.section	.data.set_mode,"aw"
+ 1824              		.align	2
+ 1825              		.set	.LANCHOR3,. + 0
+ 1828              	set_mode:
+ 1829 0000 01       		.byte	1
+ 1830 0001 44       		.byte	68
+ 1831 0002 00       		.byte	0
+ 1832 0003 01       		.byte	1
+ 1833 0004 03       		.byte	3
+ 1834 0005 00       		.byte	0
+ 1835 0006 00       		.byte	0
+ 1836 0007 00       		.byte	0
+ 1837 0008 00       		.byte	0
+ 1838              		.section	.rodata.type_read,"a"
+ 1839              		.align	2
+ 1840              		.set	.LANCHOR5,. + 0
+ 1843              	type_read:
+ 1844 0000 01       		.byte	1
+ 1845 0001 45       		.byte	69
+ 1846 0002 00       		.byte	0
+ 1847 0003 5A       		.byte	90
+ 1848 0004 5A       		.byte	90
+ 1849 0005 5A       		.byte	90
+ 1850 0006 5A       		.byte	90
+ 1851 0007 5A       		.byte	90
+ 1852 0008 5A       		.byte	90
+ 1853              		.text
+ 1854              	.Letext0:
+ 1855              		.file 2 "d:\\stm32\\gnu mcu eclipse\\arm embedded gcc\\8.2.1-1.4-20190214-0604\\arm-none-eabi\\inc
+ 1856              		.file 3 "d:\\stm32\\gnu mcu eclipse\\arm embedded gcc\\8.2.1-1.4-20190214-0604\\arm-none-eabi\\inc
+ 1857              		.file 4 "Drivers/PS2Xlib/Inc/PS2X_lib.h"
+ 1858              		.file 5 "Inc/FreeRTOSConfig.h"
+ 1859              		.file 6 "Drivers/CMSIS/Include/core_cm3.h"
+ 1860              		.file 7 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/system_stm32f1xx.h"
+ 1861              		.file 8 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xb.h"
+ 1862              		.file 9 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_gpio.h"
+ 1863              		.file 10 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h"
+ 1864              		.file 11 "Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h"
+ARM GAS  D:\Temp\cchpYA3w.s 			page 46
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 PS2X_lib.c
+  D:\Temp\cchpYA3w.s:20     .text.map:0000000000000000 $t
+  D:\Temp\cchpYA3w.s:28     .text.map:0000000000000000 map
+  D:\Temp\cchpYA3w.s:87     .text._NewButtonState:0000000000000000 $t
+  D:\Temp\cchpYA3w.s:94     .text._NewButtonState:0000000000000000 _NewButtonState
+  D:\Temp\cchpYA3w.s:115    .text._NewButtonState:0000000000000010 $d
+                            *COM*:0000000000000002 last_buttons
+                            *COM*:0000000000000002 buttons
+  D:\Temp\cchpYA3w.s:121    .text.NewButtonState:0000000000000000 $t
+  D:\Temp\cchpYA3w.s:128    .text.NewButtonState:0000000000000000 NewButtonState
+  D:\Temp\cchpYA3w.s:155    .text.NewButtonState:0000000000000014 $d
+  D:\Temp\cchpYA3w.s:161    .text.ButtonReleased:0000000000000000 $t
+  D:\Temp\cchpYA3w.s:168    .text.ButtonReleased:0000000000000000 ButtonReleased
+  D:\Temp\cchpYA3w.s:201    .text.ButtonReleased:000000000000001c $d
+  D:\Temp\cchpYA3w.s:206    .text.Button:0000000000000000 $t
+  D:\Temp\cchpYA3w.s:213    .text.Button:0000000000000000 Button
+  D:\Temp\cchpYA3w.s:237    .text.Button:0000000000000010 $d
+  D:\Temp\cchpYA3w.s:242    .text.ButtonPressed:0000000000000000 $t
+  D:\Temp\cchpYA3w.s:249    .text.ButtonPressed:0000000000000000 ButtonPressed
+  D:\Temp\cchpYA3w.s:285    .text.ButtonDataByte:0000000000000000 $t
+  D:\Temp\cchpYA3w.s:292    .text.ButtonDataByte:0000000000000000 ButtonDataByte
+  D:\Temp\cchpYA3w.s:307    .text.ButtonDataByte:0000000000000008 $d
+  D:\Temp\cchpYA3w.s:312    .text.Analog:0000000000000000 $t
+  D:\Temp\cchpYA3w.s:319    .text.Analog:0000000000000000 Analog
+  D:\Temp\cchpYA3w.s:337    .text.Analog:0000000000000008 $d
+                            *COM*:0000000000000015 PS2data
+  D:\Temp\cchpYA3w.s:342    .text._gamepad_shiftinout:0000000000000000 $t
+  D:\Temp\cchpYA3w.s:349    .text._gamepad_shiftinout:0000000000000000 _gamepad_shiftinout
+  D:\Temp\cchpYA3w.s:546    .text._gamepad_shiftinout:000000000000009c $d
+  D:\Temp\cchpYA3w.s:551    .text.sendCommandString:0000000000000000 $t
+  D:\Temp\cchpYA3w.s:558    .text.sendCommandString:0000000000000000 sendCommandString
+  D:\Temp\cchpYA3w.s:649    .text.sendCommandString:0000000000000044 $d
+                            *COM*:0000000000000001 read_delay
+  D:\Temp\cchpYA3w.s:656    .text.readType:0000000000000000 $t
+  D:\Temp\cchpYA3w.s:663    .text.readType:0000000000000000 readType
+  D:\Temp\cchpYA3w.s:726    .text.readType:0000000000000038 $d
+                            *COM*:0000000000000001 controller_type
+  D:\Temp\cchpYA3w.s:732    .text.enableRumble:0000000000000000 $t
+  D:\Temp\cchpYA3w.s:739    .text.enableRumble:0000000000000000 enableRumble
+  D:\Temp\cchpYA3w.s:775    .text.enableRumble:0000000000000024 $d
+                            *COM*:0000000000000001 en_Rumble
+  D:\Temp\cchpYA3w.s:783    .text.reconfig_gamepad:0000000000000000 $t
+  D:\Temp\cchpYA3w.s:790    .text.reconfig_gamepad:0000000000000000 reconfig_gamepad
+  D:\Temp\cchpYA3w.s:849    .text.reconfig_gamepad:000000000000003c $d
+                            *COM*:0000000000000001 en_Pressures
+  D:\Temp\cchpYA3w.s:867    .text.read_gamepad:0000000000000000 $t
+  D:\Temp\cchpYA3w.s:874    .text.read_gamepad:0000000000000000 read_gamepad
+  D:\Temp\cchpYA3w.s:1230   .text.read_gamepad:0000000000000184 $d
+                            *COM*:0000000000000004 last_read
+  D:\Temp\cchpYA3w.s:1243   .text._read_gamepad:0000000000000000 $t
+  D:\Temp\cchpYA3w.s:1250   .text._read_gamepad:0000000000000000 _read_gamepad
+  D:\Temp\cchpYA3w.s:1272   .text.config_gamepad:0000000000000000 $t
+  D:\Temp\cchpYA3w.s:1279   .text.config_gamepad:0000000000000000 config_gamepad
+  D:\Temp\cchpYA3w.s:1622   .text.config_gamepad:0000000000000134 $d
+  D:\Temp\cchpYA3w.s:1640   .text._config_gamepad:0000000000000000 $t
+  D:\Temp\cchpYA3w.s:1647   .text._config_gamepad:0000000000000000 _config_gamepad
+ARM GAS  D:\Temp\cchpYA3w.s 			page 47
+
+
+  D:\Temp\cchpYA3w.s:1680   .text.enablePressures:0000000000000000 $t
+  D:\Temp\cchpYA3w.s:1687   .text.enablePressures:0000000000000000 enablePressures
+  D:\Temp\cchpYA3w.s:1743   .text.enablePressures:0000000000000038 $d
+                            *COM*:0000000000000004 _dat_lport
+                            *COM*:0000000000000002 _dat_mask
+                            *COM*:0000000000000004 _att_lport_clr
+                            *COM*:0000000000000004 _att_lport_set
+                            *COM*:0000000000000002 _att_mask
+                            *COM*:0000000000000004 _cmd_lport_clr
+                            *COM*:0000000000000004 _cmd_lport_set
+                            *COM*:0000000000000002 _cmd_mask
+                            *COM*:0000000000000004 _clk_lport_clr
+                            *COM*:0000000000000004 _clk_lport_set
+                            *COM*:0000000000000002 _clk_mask
+                            *COM*:0000000000000001 i
+  D:\Temp\cchpYA3w.s:1772   .data.enable_rumble:0000000000000000 $d
+  D:\Temp\cchpYA3w.s:1776   .data.enable_rumble:0000000000000000 enable_rumble
+  D:\Temp\cchpYA3w.s:1783   .data.enter_config:0000000000000000 $d
+  D:\Temp\cchpYA3w.s:1787   .data.enter_config:0000000000000000 enter_config
+  D:\Temp\cchpYA3w.s:1794   .data.exit_config:0000000000000000 $d
+  D:\Temp\cchpYA3w.s:1798   .data.exit_config:0000000000000000 exit_config
+  D:\Temp\cchpYA3w.s:1809   .data.set_bytes_large:0000000000000000 $d
+  D:\Temp\cchpYA3w.s:1813   .data.set_bytes_large:0000000000000000 set_bytes_large
+  D:\Temp\cchpYA3w.s:1824   .data.set_mode:0000000000000000 $d
+  D:\Temp\cchpYA3w.s:1828   .data.set_mode:0000000000000000 set_mode
+  D:\Temp\cchpYA3w.s:1839   .rodata.type_read:0000000000000000 $d
+  D:\Temp\cchpYA3w.s:1843   .rodata.type_read:0000000000000000 type_read
+
+UNDEFINED SYMBOLS
+__aeabi_fsub
+__aeabi_fdiv
+__aeabi_fmul
+__aeabi_fadd
+HAL_GPIO_WritePin
+delayMicroseconds
+HAL_GPIO_ReadPin
+osDelay
+__aeabi_ui2d
+__aeabi_i2d
+__aeabi_dcmpgt
+__aeabi_dsub
+__aeabi_d2uiz
+__aeabi_ui2f
+__aeabi_f2uiz
+HAL_GetTick
